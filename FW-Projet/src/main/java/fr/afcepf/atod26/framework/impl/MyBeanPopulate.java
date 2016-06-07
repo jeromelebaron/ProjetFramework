@@ -25,7 +25,6 @@ public class MyBeanPopulate {
      * Pour faire du log.
      */
     private static final Logger LOGGER = Logger.getLogger(MyBeanPopulate.class);
-
     /**
      * La map pour mapper les paramètre en fonction de leur type.
      */

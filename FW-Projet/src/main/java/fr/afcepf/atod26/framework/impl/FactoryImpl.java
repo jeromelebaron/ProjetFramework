@@ -9,13 +9,17 @@ import fr.afcepf.atod26.framework.api.Action;
 import fr.afcepf.atod26.framework.api.ActionForm;
 
 /**
- * Factory pour construire une instance d'{@link Action}.
+ * Factory pour récupérer les éléments du fichier XML.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
 public class FactoryImpl {
 
+    /**
+     * Singleton
+     */
+    private static FactoryImpl factoryImpl;
     /**
      * La map qui contient la correspondance entre une {@link Action} et son {@link ActionForm}.
      */
@@ -36,6 +40,9 @@ public class FactoryImpl {
      * Chargement de la map au démarrage de l'application
      */
     static {
+        if (factoryImpl == null) {
+            factoryImpl = new FactoryImpl();
+        }
         mapping = FactoryConfig.remplirMap("action", "url-pattern", "form-name");
         mappingAction = FactoryConfig.remplirMapAction();
         mappingActionForm = FactoryConfig.remplirMapForm();
@@ -68,12 +75,18 @@ public class FactoryImpl {
 
     /**
      * Pour avoir la correspondance entre l'url-pattern et le form-name.
+     * @param paramPath
      * @return la map avec ces informations.
      */
     public static String fabriqueCorrespondanceActionEtForm(String paramPath) {
         return mapping.get(paramPath);
     }
 
+    /**
+     * Pour avoir la vue correspondant à l'url-pattern.
+     * @param paramPath l'url-pattern.
+     * @return le chemin de la vue correspondante.
+     */
     public static String getView(String paramPath) {
         return mappingView.get(paramPath);
     }

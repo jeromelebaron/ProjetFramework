@@ -53,12 +53,12 @@ public class ActionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String servletPath = request.getServletPath();
-        String path = servletPath.substring(1, servletPath.lastIndexOf("frm") - 1);
+        final String servletPath = request.getServletPath();
+        final String path = servletPath.substring(1, servletPath.lastIndexOf("frm") - 1);
         String view = "index.html";
-        ActionForm actionForm = FactoryImpl.fabriqueActionForm(FactoryImpl
+        final ActionForm actionForm = FactoryImpl.fabriqueActionForm(FactoryImpl
                 .fabriqueCorrespondanceActionEtForm(path));
-        MyBeanPopulate localBeanPopulate = new MyBeanPopulate();
+        final MyBeanPopulate localBeanPopulate = new MyBeanPopulate();
         localBeanPopulate.populateBean(actionForm, recupereParametresRequete(request));
         if (actionForm.validateForm().isEmpty()) {
             view = FactoryImpl.fabriqueAction(path).execute(request, response);
@@ -81,8 +81,8 @@ public class ActionServlet extends HttpServlet {
      * @return une map avec le nom du paramètre et sa valeur.
      */
     private Map<String, String> recupereParametresRequete(HttpServletRequest request) {
-        Map<String, String[]> paramRequest = request.getParameterMap();
-        Map<String, String> aRenvoyer = new HashMap<>();
+        final Map<String, String[]> paramRequest = request.getParameterMap();
+        final Map<String, String> aRenvoyer = new HashMap<>();
         for (String cle : paramRequest.keySet()) {
             aRenvoyer.put(cle, paramRequest.get(cle)[0]);
             request.setAttribute(cle, paramRequest.get(cle)[0]);

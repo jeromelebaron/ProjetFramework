@@ -31,6 +31,10 @@ import fr.afcepf.atod26.framework.api.ActionForm;
 public class FactoryConfig {
 
     /**
+     * Singleton
+     */
+    private static FactoryConfig factoryConfig;
+    /**
      * Pour faire du log.
      */
     private static final Logger LOGGER = Logger.getLogger(FactoryConfig.class);
@@ -59,6 +63,9 @@ public class FactoryConfig {
      * différents éléments nécessaires à la récupération des éléments dans le fichier XML.
      */
     static {
+        if (factoryConfig == null) {
+            factoryConfig = new FactoryConfig();
+        }
         pathFichier = Thread.currentThread().getContextClassLoader().getResource("config.xml")
                 .getPath();
         factory = DocumentBuilderFactory.newInstance();
