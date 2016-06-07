@@ -55,14 +55,15 @@ public class ActionServlet extends HttpServlet {
             throws ServletException, IOException {
         String servletPath = request.getServletPath();
         String path = servletPath.substring(1, servletPath.lastIndexOf("frm") - 1);
-        String view = "test.jsp";
+        String view = "index.html";
         ActionForm actionForm = FactoryImpl.fabriqueActionForm(FactoryImpl
-                .fabriqueCorrespondanceActionEtForm().get(path));
+                .fabriqueCorrespondanceActionEtForm(path));
         MyBeanPopulate localBeanPopulate = new MyBeanPopulate();
         localBeanPopulate.populateBean(actionForm, recupereParametresRequete(request));
         if (actionForm.validateForm().isEmpty()) {
             view = FactoryImpl.fabriqueAction(path).execute(request, response);
         } else {
+            view = FactoryImpl.getView(path);
             request.setAttribute("erreurs", actionForm.validateForm());
         }
         if (view != null) {

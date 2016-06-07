@@ -143,18 +143,22 @@ public class FactoryConfig {
     }
 
     /**
-     * La map avec la correspondance entre url-pattern et form-name.
-     * @return la map avec les données.
+     * La map avec la correspondance entre la cle et la valeur du tag parent précisé.
+     * @param paramTagParent le nom du tag.
+     * @param paramCle la balise enfant de ce tag dont le contenu servira de clef.
+     * @param paramValeur la balise enfant de ce tage dont le contenu servira de valeur.
+     * @return une map avec cle et valeur passée en paramètre.
      */
-    public static Map<String, String> remplirMap() {
+    public static Map<String, String> remplirMap(String paramTagParent, String paramCle,
+            String paramValeur) {
         Map<String, String> correspondanceActionForm = new HashMap<>();
         try {
-            NodeList actions = racine.getElementsByTagName("action");
+            NodeList actions = racine.getElementsByTagName(paramTagParent);
             for (int localI = 0; localI < actions.getLength(); localI++) {
                 Node base = actions.item(localI);
                 NodeList elementsActions = base.getChildNodes();
-                String urlPattern = recupererContenuNoeud(elementsActions, "url-pattern");
-                String classPattern = recupererContenuNoeud(elementsActions, "form-name");
+                String urlPattern = recupererContenuNoeud(elementsActions, paramCle);
+                String classPattern = recupererContenuNoeud(elementsActions, paramValeur);
                 correspondanceActionForm.put(urlPattern, classPattern);
             }
         } catch (DOMException e) {
@@ -162,4 +166,5 @@ public class FactoryConfig {
         }
         return correspondanceActionForm;
     }
+
 }

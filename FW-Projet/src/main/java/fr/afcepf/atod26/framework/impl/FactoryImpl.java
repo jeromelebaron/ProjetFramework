@@ -29,12 +29,17 @@ public class FactoryImpl {
      */
     private static Map<String, ActionForm> mappingActionForm;
     /**
+     * La map qui contient la correspondance entre une {@link Action} et sa vue.
+     */
+    private static Map<String, String> mappingView;
+    /**
      * Chargement de la map au démarrage de l'application
      */
     static {
-        mapping = FactoryConfig.remplirMap();
+        mapping = FactoryConfig.remplirMap("action", "url-pattern", "form-name");
         mappingAction = FactoryConfig.remplirMapAction();
         mappingActionForm = FactoryConfig.remplirMapForm();
+        mappingView = FactoryConfig.remplirMap("action", "url-pattern", "from-view");
     }
 
     /**
@@ -65,8 +70,12 @@ public class FactoryImpl {
      * Pour avoir la correspondance entre l'url-pattern et le form-name.
      * @return la map avec ces informations.
      */
-    public static Map<String, String> fabriqueCorrespondanceActionEtForm() {
-        return mapping;
+    public static String fabriqueCorrespondanceActionEtForm(String paramPath) {
+        return mapping.get(paramPath);
+    }
+
+    public static String getView(String paramPath) {
+        return mappingView.get(paramPath);
     }
 
 }

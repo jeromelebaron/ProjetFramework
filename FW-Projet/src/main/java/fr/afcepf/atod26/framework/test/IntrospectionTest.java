@@ -25,8 +25,8 @@ public class IntrospectionTest {
         MyBeanPopulate localBeanPopulate = new MyBeanPopulate();
         ActionForm actionUn = new ActionUnForm();
         Map<String, String> mapTest = new HashMap<>();
-        mapTest.put("nom", null);
-        mapTest.put("age", null);
+        mapTest.put("nom", "jer");
+        mapTest.put("age", "23");
         localBeanPopulate.populateBean(actionUn, mapTest);
         System.out.println(actionUn.validateForm());
     }

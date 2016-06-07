@@ -10,7 +10,7 @@
 <body>
 	<form action="actionun.frm" method="post">
 		<input type="text" name="nom" /><span><c:out
-				value="${erreurs['nom'] }"></c:out></span> <input type="text" name="age" /><span><c:out
+				value="${erreurs['nom'] }"></c:out></span><input type="text" name="age" /><span><c:out
 				value="${erreurs['age'] }"></c:out></span><input type="submit" value="go">
 	</form>
 </body>

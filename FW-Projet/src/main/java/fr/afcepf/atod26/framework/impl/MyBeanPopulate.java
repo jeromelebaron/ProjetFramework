@@ -35,18 +35,18 @@ public class MyBeanPopulate {
      * La Constructeur.
      */
     public MyBeanPopulate() {
-        mapClasseParam = new HashMap<Class<?>, ISetParametre>();
+        mapClasseParam = new HashMap<>();
         mapClasseParam.put(String.class, new SetParametreString());
         mapClasseParam.put(Integer.class, new SetParametreInteger());
     }
 
     /**
      * Pour peupler un bean avec les paramètres de la requete.
-     * @param paramObject
-     * @param paramMapParametresPage
+     * @param paramObject l'objet pour lequel setter les paramètres.
+     * @param paramMapParametresPage les paramètres de la requete à setter.
      */
     public void populateBean(Object paramObject, Map<String, String> paramMapParametresPage) {
-        Class c = paramObject.getClass();
+        Class<? extends Object> c = paramObject.getClass();
         final Field[] lesAttributs = c.getDeclaredFields();
         for (Field localField : lesAttributs) {
             if (paramMapParametresPage.containsKey(localField.getName())) {

@@ -58,7 +58,8 @@ public class XMLTest {
         System.out.println(test);
         Map<String, ActionForm> testForm = FactoryConfig.remplirMapForm();
         System.out.println(testForm);
-        Map<String, String> testMapping = FactoryConfig.remplirMap();
+        Map<String, String> testMapping = FactoryConfig.remplirMap("action", "url-pattern",
+                "form-name");
         System.out.println(testMapping);
     }
 
