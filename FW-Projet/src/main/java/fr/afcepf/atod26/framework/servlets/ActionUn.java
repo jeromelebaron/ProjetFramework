@@ -11,13 +11,16 @@ import org.apache.log4j.Logger;
 import fr.afcepf.atod26.framework.api.Action;
 
 /**
- * La classe qui permet d'aller sur path /action1
+ * La classe qui permet d'aller sur path /actionun
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
 public class ActionUn implements Action {
 
+    /**
+     * Pour faire du log.
+     */
     private Logger logger = Logger.getLogger(ActionUn.class);
 
     /**

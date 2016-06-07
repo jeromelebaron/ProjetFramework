@@ -18,8 +18,13 @@ import fr.afcepf.atod26.framework.impl.FactoryImpl;
 @WebServlet("*.frm")
 public class ActionServlet extends HttpServlet {
 
+    /**
+     * Pour faire du log.
+     */
     private Logger logger = Logger.getLogger(ActionServlet.class);
-
+    /**
+     * Pour la sérialisation
+     */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -32,6 +37,7 @@ public class ActionServlet extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
@@ -40,6 +46,7 @@ public class ActionServlet extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String servletPath = request.getServletPath();

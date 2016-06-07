@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monframework-config>
+	<actions>
+		<action>
+			<action-name>actionUn</action-name>
+			<url-pattern>actionun</url-pattern>
+			<form-name>actionUnForm</form-name>
+		</action>
+		<action>
+			<action-name>actionDeux</action-name>
+			<url-pattern>actiondeux</url-pattern>
+			<form-name>actionDeuxForm</form-name>
+		</action>
+		<action>
+            <action-name>actionTrois</action-name>
+            <url-pattern>actiontrois</url-pattern>
+            <form-name>actionTroisForm</form-name>
+        </action>
+	</actions>
+	<forms>
+		<form>
+			<form-name>actionUnForm</form-name>
+			<form-class>fr.afcepf.atod26.framework.servlets.ActionUn</form-class>
+		</form>
+		<form>
+			<form-name>actionDeuxForm</form-name>
+			<form-class>fr.afcepf.atod26.framework.servlets.ActionDeux</form-class>
+		</form>
+		<form>
+            <form-name>actionTroisForm</form-name>
+            <form-class>fr.afcepf.atod26.framework.servlets.ActionTrois</form-class>
+        </form>
+	</forms>
+</monframework-config>

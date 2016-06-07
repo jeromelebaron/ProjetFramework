@@ -11,25 +11,25 @@ import org.apache.log4j.Logger;
 import fr.afcepf.atod26.framework.api.Action;
 
 /**
- * La classe qui permet d'aller sur path /actiondeux
+ * La classe qui permet d'aller sur path /actiontrois
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class ActionDeux implements Action {
+public class ActionTrois implements Action {
 
     /**
      * Pour faire du log.
      */
-    private Logger logger = Logger.getLogger(ActionDeux.class);
+    private Logger logger = Logger.getLogger(ActionTrois.class);
 
     /**
      * {@inheritDoc}
      */
     @Override
     public String execute(HttpServletRequest paramRequest, HttpServletResponse paramResponse) {
-        logger.info("je suis dans Action2");
-        return "actiondeux.jsp";
+        logger.info("je suis dans Action3");
+        return "actiontrois.jsp";
     }
 
 }
