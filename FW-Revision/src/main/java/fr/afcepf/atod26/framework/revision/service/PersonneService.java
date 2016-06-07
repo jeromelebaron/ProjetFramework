@@ -3,6 +3,7 @@
  */
 package fr.afcepf.atod26.framework.revision.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,12 @@ import fr.afcepf.atod26.framework.revision.entity.Personne;
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class PersonneService {
+public class PersonneService implements Serializable {
+
+    /**
+     * Sérialisation
+     */
+    private static final long serialVersionUID = 1L;
 
     private List<Personne> personnes;
 
@@ -23,22 +29,13 @@ public class PersonneService {
      */
     public PersonneService() {
         personnes = new ArrayList<>();
+        personnes.add(new Personne("n1", "p1"));
+        personnes.add(new Personne("n2", "p2"));
+        personnes.add(new Personne("n3", "p3"));
     }
 
-    /**
-     * Accesseur en lecture du champ <code>personnes</code>.
-     * @return le champ <code>personnes</code>.
-     */
-    public List<Personne> getPersonnes() {
+    public List<Personne> getAll() {
         return personnes;
-    }
-
-    /**
-     * Accesseur en écriture du champ <code>personnes</code>.
-     * @param paramPersonnes la valeur à écrire dans <code>personnes</code>.
-     */
-    public void setPersonnes(List<Personne> paramPersonnes) {
-        personnes = paramPersonnes;
     }
 
 }
