@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface Action {
 
+    /**
+     * Pour éxécuter les actions.
+     * @param request la requete http.
+     * @param response la reponse http.
+     * @return l'url de la page sur laquelle etre redirigé.
+     */
     String execute(HttpServletRequest request, HttpServletResponse response);
 
 }

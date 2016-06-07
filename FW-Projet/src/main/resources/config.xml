@@ -2,33 +2,30 @@
 <monframework-config>
 	<actions>
 		<action>
-			<action-name>actionUn</action-name>
+			<action-name>fr.afcepf.atod26.framework.servlets.ActionUn
+			</action-name>
 			<url-pattern>actionun</url-pattern>
-			<form-name>actionUnForm</form-name>
+			<form-name>ActionUnForm</form-name>
+			<from-view>index.jsp</from-view>
 		</action>
 		<action>
-			<action-name>actionDeux</action-name>
+			<action-name>fr.afcepf.atod26.framework.servlets.ActionDeux
+			</action-name>
 			<url-pattern>actiondeux</url-pattern>
-			<form-name>actionDeuxForm</form-name>
+			<form-name>ActionDeuxForm</form-name>
 		</action>
 		<action>
-            <action-name>actionTrois</action-name>
-            <url-pattern>actiontrois</url-pattern>
-            <form-name>actionTroisForm</form-name>
-        </action>
+			<action-name>fr.afcepf.atod26.framework.servlets.ActionTrois
+			</action-name>
+			<url-pattern>actiontrois</url-pattern>
+			<form-name>ActionTroisForm</form-name>
+		</action>
 	</actions>
 	<forms>
 		<form>
-			<form-name>actionUnForm</form-name>
-			<form-class>fr.afcepf.atod26.framework.servlets.ActionUn</form-class>
+			<form-name>ActionUnForm</form-name>
+			<form-class>fr.afcepf.atod26.framework.formbeans.ActionUnForm
+			</form-class>
 		</form>
-		<form>
-			<form-name>actionDeuxForm</form-name>
-			<form-class>fr.afcepf.atod26.framework.servlets.ActionDeux</form-class>
-		</form>
-		<form>
-            <form-name>actionTroisForm</form-name>
-            <form-class>fr.afcepf.atod26.framework.servlets.ActionTrois</form-class>
-        </form>
 	</forms>
 </monframework-config>
