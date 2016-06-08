@@ -63,8 +63,8 @@ public class FactoryImpl implements IFactory {
      */
     @Override
     public IAction fabriqueAction(String paramPath) {
-        if (mapping == null) {
-            mapping = config.remplirMap("action", "url-pattern", "form-name");
+        if (mappingAction == null) {
+            mappingAction = config.remplirMapAction();
         }
         return mappingAction.get(paramPath);
     }

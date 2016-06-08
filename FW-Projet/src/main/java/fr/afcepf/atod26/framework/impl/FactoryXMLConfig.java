@@ -270,8 +270,6 @@ public class FactoryXMLConfig implements IConfig {
      * Pour setter le singleton de la classe.
      * @param paramNouvelleInstance l'instance pour laquelle setter le singleton.
      * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
      */
@@ -296,7 +294,6 @@ public class FactoryXMLConfig implements IConfig {
      * @param paramNouvelleInstance
      * @param paramProprieteBean
      * @param paramLesBeans
-     * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
     private static void setDependance(Object paramNouvelleInstance,
