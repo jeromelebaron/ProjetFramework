@@ -62,6 +62,7 @@ public class ActionServlet extends HttpServlet {
         final String servletPath = request.getServletPath();
         final String path = servletPath.substring(1, servletPath.lastIndexOf("frm") - 1);
         String view = "index.html";
+        // TODO est on obligé d'avoir un form juste pour les get
         final IActionForm actionForm = factory.fabriqueActionForm(factory
                 .fabriqueCorrespondanceActionEtForm(path));
         final MyBeanPopulate localBeanPopulate = new MyBeanPopulate();
