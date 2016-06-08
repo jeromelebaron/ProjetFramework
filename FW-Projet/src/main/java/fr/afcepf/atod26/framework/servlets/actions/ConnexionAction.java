@@ -1,7 +1,7 @@
 /*
- * Créé le 7 juin 2016 par Jérome LE BARON
+ * Créé le 8 juin 2016 par Jérome LE BARON
  */
-package fr.afcepf.atod26.framework.servlets;
+package fr.afcepf.atod26.framework.servlets.actions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,25 +11,27 @@ import org.apache.log4j.Logger;
 import fr.afcepf.atod26.framework.api.IAction;
 
 /**
- * La classe qui permet d'aller sur path /actiondeux
+ * Description de la classe
+ * 
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class ActionDeux implements IAction {
+public class ConnexionAction implements IAction {
 
     /**
      * Pour faire du log.
      */
-    private Logger logger = Logger.getLogger(ActionDeux.class);
-
-    /**
+    private Logger logger = Logger.getLogger(ConnexionAction.class);
+    
+    /** 
      * {@inheritDoc}
      */
     @Override
     public String execute(HttpServletRequest paramRequest, HttpServletResponse paramResponse) {
-        logger.info("je suis dans Action2");
-        return "actiondeux.jsp";
+        logger.info("je suis dans ActionForm");
+        return "index.html";
     }
 
 }
+

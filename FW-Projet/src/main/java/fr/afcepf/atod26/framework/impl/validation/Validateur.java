@@ -1,7 +1,7 @@
 /*
  * Créé le 8 juin 2016 par Jérome LE BARON
  */
-package fr.afcepf.atod26.framework.impl;
+package fr.afcepf.atod26.framework.impl.validation;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -11,9 +11,6 @@ import fr.afcepf.atod26.framework.annotations.EntierPositif;
 import fr.afcepf.atod26.framework.annotations.LongueurMin;
 import fr.afcepf.atod26.framework.annotations.Obligatoire;
 import fr.afcepf.atod26.framework.api.IValidateur;
-import fr.afcepf.atod26.framework.impl.validation.ValidateurEntierPositif;
-import fr.afcepf.atod26.framework.impl.validation.ValidateurLongeurMin;
-import fr.afcepf.atod26.framework.impl.validation.ValidateurObligatoire;
 
 /**
  * Pour valider les éléments avec des annotations.

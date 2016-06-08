@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.afcepf.atod26.framework.api.IActionForm;
-import fr.afcepf.atod26.framework.impl.Validateur;
+import fr.afcepf.atod26.framework.impl.validation.Validateur;
 
 /**
  * Description de la classe
@@ -15,7 +15,7 @@ import fr.afcepf.atod26.framework.impl.Validateur;
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class ConnexionForm implements IActionForm {
+public class ConnexionActionForm implements IActionForm {
 
     private String nom;
 
