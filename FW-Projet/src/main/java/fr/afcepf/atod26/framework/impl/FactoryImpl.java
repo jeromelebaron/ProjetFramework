@@ -97,4 +97,20 @@ public class FactoryImpl {
         return mappingView.get(paramPath);
     }
 
+    /**
+     * Accesseur en lecture du champ <code>config</code>.
+     * @return le champ <code>config</code>.
+     */
+    public static IConfig getConfig() {
+        return config;
+    }
+
+    /**
+     * Accesseur en écriture du champ <code>config</code>.
+     * @param paramConfig la valeur à écrire dans <code>config</code>.
+     */
+    public static void setConfig(IConfig paramConfig) {
+        config = paramConfig;
+    }
+
 }

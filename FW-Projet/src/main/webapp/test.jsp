@@ -5,13 +5,17 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Test</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 <body>
-	<form action="actionun.frm" method="post">
-		<input type="text" name="nom" /><span><c:out
-				value="${erreurs['nom'] }"></c:out></span><input type="text" name="age" /><span><c:out
-				value="${erreurs['age'] }"></c:out></span><input type="submit" value="go">
-	</form>
+	<div class="container">
+		<form action="actionun.frm" method="post">
+			<input type="text" name="nom" /><span><c:out
+					value="${erreurs['nom'] }"></c:out></span><input type="text" name="age" /><span><c:out
+					value="${erreurs['age'] }"></c:out></span><input type="submit" value="go">
+		</form>
+	</div>
 </body>
 </html>
