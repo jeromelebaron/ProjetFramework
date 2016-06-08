@@ -13,6 +13,12 @@
 			<form-name>ActionDeuxForm</form-name>
 			<from-view>actiondeux.jsp</from-view>
 		</action>
+		<action>
+		  <action-name>fr.afcepf.atod26.framework.servlets.ActionForm</action-name>
+		  <url-pattern>connexion</url-pattern>
+		  <form-name>ConnexionForm</form-name>
+		  <from-view>connexion.jsp</from-view>
+		</action>
 	</actions>
 	<forms>
 		<form>
@@ -22,6 +28,10 @@
 		<form>
 			<form-name>ActionDeuxForm</form-name>
 			<form-class>fr.afcepf.atod26.framework.formbeans.ActionDeuxForm</form-class>
+		</form>
+		<form>
+		  <form-name>ConnexionForm</form-name>
+		  <form-class>fr.afcepf.atod26.framework.formbeans.ConnexionForm</form-class>
 		</form>
 	</forms>
 	<beans>

@@ -9,14 +9,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation pour vérifier la longueur maximum d'une chaine de caractères.
+ * Pour vérifier qu'un entier est bien positif.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface LongueurMin {
+public @interface EntierPositif {
 
-    int longueurMin();
 }

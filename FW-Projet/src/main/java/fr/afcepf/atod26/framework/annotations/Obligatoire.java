@@ -9,14 +9,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation pour vérifier la longueur maximum d'une chaine de caractères.
+ * Pour spécifier si un champs est obligatoire.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface LongueurMin {
+public @interface Obligatoire {
 
-    int longueurMin();
 }

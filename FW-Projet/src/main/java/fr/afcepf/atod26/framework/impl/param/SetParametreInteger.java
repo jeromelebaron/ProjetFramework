@@ -23,7 +23,7 @@ public class SetParametreInteger implements ISetParametre {
             throws IllegalAccessException {
         paramField.setAccessible(true);
         Integer entier = null;
-        if (!paramNameField.isEmpty()) {
+        if (paramNameField != null && !paramNameField.isEmpty()) {
             entier = Integer.parseInt(paramNameField);
         }
         paramField.set(paramObject, entier);
