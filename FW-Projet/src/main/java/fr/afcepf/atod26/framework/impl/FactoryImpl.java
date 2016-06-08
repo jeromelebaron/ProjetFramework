@@ -8,6 +8,7 @@ import java.util.Map;
 import fr.afcepf.atod26.framework.api.IAction;
 import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.api.IConfig;
+import fr.afcepf.atod26.framework.api.IFactory;
 
 /**
  * Factory pour récupérer les éléments du fichier XML.
@@ -15,102 +16,98 @@ import fr.afcepf.atod26.framework.api.IConfig;
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class FactoryImpl {
+public class FactoryImpl implements IFactory {
 
     /**
-     * Singleton
+     * Singleton.
      */
     private static FactoryImpl factoryImpl;
     /**
      * L'instance nécessaire pour récupérer la configuration du framework.
      */
-    private static IConfig config;
+    private IConfig config;
     /**
      * La map qui contient la correspondance entre une {@link IAction} et son {@link IActionForm}.
      */
-    private static Map<String, String> mapping;
+    private Map<String, String> mapping;
     /**
      * Le mapping de la correspondance entre url et classe {@link IAction} concernée.
      */
-    private static Map<String, IAction> mappingAction;
+    private Map<String, IAction> mappingAction;
     /**
-     * Le mapping de la correspondance entre et {@link IActionForm}.
+     * Le mapping de la correspondance entre url et {@link IActionForm}.
      */
-    private static Map<String, IActionForm> mappingActionForm;
+    private Map<String, IActionForm> mappingActionForm;
     /**
      * La map qui contient la correspondance entre une {@link IAction} et sa vue.
      */
-    private static Map<String, String> mappingView;
-    /**
-     * Chargement de la map au démarrage de l'application
-     */
-    static {
-        if (factoryImpl == null) {
-            factoryImpl = new FactoryImpl();
-        }
-        config = FactoryXMLConfig.getInstance();
-        mapping = config.remplirMap("action", "url-pattern", "form-name");
-        mappingAction = config.remplirMapAction();
-        mappingActionForm = config.remplirMapForm();
-        mappingView = config.remplirMap("action", "url-pattern", "from-view");
-    }
+    private Map<String, String> mappingView;
 
     /**
-     * Constructeur privé.
+     * Constructeur.
      */
     private FactoryImpl() {
+        // EMPTY
     }
 
     /**
-     * Pour récupérer une classe de type {@link IAction} en fonction d'un url-pattern.
-     * @param paramPath le pattern pour lequel récupérer la classe.
-     * @return l'instance d'{@link IAction} correspondante.
+     * Pour récupérer l'instance du singleton.
+     * @return le singleton.
      */
-    public static IAction fabriqueAction(String paramPath) {
+    public static FactoryImpl getInstance() {
+        return factoryImpl;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public IAction fabriqueAction(String paramPath) {
+        if (mapping == null) {
+            mapping = config.remplirMap("action", "url-pattern", "form-name");
+        }
         return mappingAction.get(paramPath);
     }
 
     /**
-     * Pour récupérer une classe de type {@link IActionForm} en fonction d'un form-name.
-     * @param paramActionForm le form-name pour lequel récupérer la classe.
-     * @return l'instance de {@link IActionForm} correspondante.
+     * {@inheritDoc}
      */
-    public static IActionForm fabriqueActionForm(String paramActionForm) {
+    @Override
+    public IActionForm fabriqueActionForm(String paramActionForm) {
+        if (mappingActionForm == null) {
+            mappingActionForm = config.remplirMapForm();
+        }
         return mappingActionForm.get(paramActionForm);
     }
 
     /**
-     * Pour avoir la correspondance entre l'url-pattern et le form-name.
-     * @param paramPath
-     * @return la map avec ces informations.
+     * {@inheritDoc}
      */
-    public static String fabriqueCorrespondanceActionEtForm(String paramPath) {
+    @Override
+    public String fabriqueCorrespondanceActionEtForm(String paramPath) {
+        if (mapping == null) {
+            mapping = config.remplirMap("action", "url-pattern", "form-name");
+        }
         return mapping.get(paramPath);
     }
 
     /**
-     * Pour avoir la vue correspondant à l'url-pattern.
-     * @param paramPath l'url-pattern.
-     * @return le chemin de la vue correspondante.
+     * {@inheritDoc}
      */
-    public static String getView(String paramPath) {
+    @Override
+    public String getView(String paramPath) {
+        if (mappingView == null) {
+            mappingView = config.remplirMap("action", "url-pattern", "from-view");
+        }
         return mappingView.get(paramPath);
     }
 
     /**
-     * Accesseur en lecture du champ <code>config</code>.
-     * @return le champ <code>config</code>.
+     * Accesseur en écriture du champ <code>factoryImpl</code>.
+     * @param paramFactoryImpl la valeur à écrire dans <code>factoryImpl</code>.
      */
-    public static IConfig getConfig() {
-        return config;
-    }
-
-    /**
-     * Accesseur en écriture du champ <code>config</code>.
-     * @param paramConfig la valeur à écrire dans <code>config</code>.
-     */
-    public static void setConfig(IConfig paramConfig) {
-        config = paramConfig;
+    public static void setFactoryImpl(FactoryImpl paramFactoryImpl) {
+        factoryImpl = paramFactoryImpl;
     }
 
 }

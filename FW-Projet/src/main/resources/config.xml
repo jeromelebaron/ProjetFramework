@@ -2,15 +2,13 @@
 <monframework-config>
 	<actions>
 		<action>
-			<action-name>fr.afcepf.atod26.framework.servlets.ActionUn
-			</action-name>
+			<action-name>fr.afcepf.atod26.framework.servlets.ActionUn</action-name>
 			<url-pattern>actionun</url-pattern>
 			<form-name>ActionUnForm</form-name>
 			<from-view>test.jsp</from-view>
 		</action>
 		<action>
-			<action-name>fr.afcepf.atod26.framework.servlets.ActionDeux
-			</action-name>
+			<action-name>fr.afcepf.atod26.framework.servlets.ActionDeux</action-name>
 			<url-pattern>actiondeux</url-pattern>
 			<form-name>ActionDeuxForm</form-name>
 			<from-view>actiondeux.jsp</from-view>
@@ -19,19 +17,17 @@
 	<forms>
 		<form>
 			<form-name>ActionUnForm</form-name>
-			<form-class>fr.afcepf.atod26.framework.formbeans.ActionUnForm
-			</form-class>
+			<form-class>fr.afcepf.atod26.framework.formbeans.ActionUnForm</form-class>
 		</form>
 		<form>
 			<form-name>ActionDeuxForm</form-name>
-			<form-class>fr.afcepf.atod26.framework.formbeans.ActionDeuxForm
-			</form-class>
+			<form-class>fr.afcepf.atod26.framework.formbeans.ActionDeuxForm</form-class>
 		</form>
 	</forms>
 	<beans>
-		<bean id="factoryImpl" class="fr.afcepf.atod26.framework.impl.FactoryImpl" />
-		<bean id="factoryXMLConfig" class="fr.afcepf.atod26.framework.impl.FactoryXMLConfig">
-			<property name="config" ref="factoryImpl" />
-		</bean>
+	   <bean id="factoryXMLConfig" class="fr.afcepf.atod26.framework.impl.FactoryXMLConfig"/>
+	   <bean id="factoryImpl" class="fr.afcepf.atod26.framework.impl.FactoryImpl" >
+	       <property name="config" ref="factoryXMLConfig" />
+	   </bean>
 	</beans>
 </monframework-config>

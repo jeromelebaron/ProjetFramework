@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import fr.afcepf.atod26.framework.api.IActionForm;
+import fr.afcepf.atod26.framework.api.IFactory;
 import fr.afcepf.atod26.framework.impl.FactoryImpl;
+import fr.afcepf.atod26.framework.impl.FactoryXMLConfig;
 import fr.afcepf.atod26.framework.impl.MyBeanPopulate;
 
 /**
@@ -31,11 +33,15 @@ public class ActionServlet extends HttpServlet {
      */
     private static final long serialVersionUID = 1L;
 
+    private IFactory factory;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ActionServlet() {
         super();
+        FactoryXMLConfig.remplirMapBeans();
+        factory = FactoryImpl.getInstance();
     }
 
     /**
@@ -56,14 +62,14 @@ public class ActionServlet extends HttpServlet {
         final String servletPath = request.getServletPath();
         final String path = servletPath.substring(1, servletPath.lastIndexOf("frm") - 1);
         String view = "index.html";
-        final IActionForm actionForm = FactoryImpl.fabriqueActionForm(FactoryImpl
+        final IActionForm actionForm = factory.fabriqueActionForm(factory
                 .fabriqueCorrespondanceActionEtForm(path));
         final MyBeanPopulate localBeanPopulate = new MyBeanPopulate();
         localBeanPopulate.populateBean(actionForm, recupereParametresRequete(request));
         if (actionForm.validateForm().isEmpty()) {
-            view = FactoryImpl.fabriqueAction(path).execute(request, response);
+            view = factory.fabriqueAction(path).execute(request, response);
         } else {
-            view = FactoryImpl.getView(path);
+            view = factory.getView(path);
             request.setAttribute("erreurs", actionForm.validateForm());
         }
         if (view != null) {
