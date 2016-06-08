@@ -19,8 +19,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import fr.afcepf.atod26.framework.api.Action;
-import fr.afcepf.atod26.framework.api.ActionForm;
+import fr.afcepf.atod26.framework.api.IAction;
+import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.api.IConfig;
 
 /**
@@ -98,8 +98,8 @@ public class FactoryXMLConfig implements IConfig {
      * {@inheritDoc}
      */
     @Override
-    public Map<String, Action> remplirMapAction() {
-        Map<String, Action> mapping = new HashMap<>();
+    public Map<String, IAction> remplirMapAction() {
+        Map<String, IAction> mapping = new HashMap<>();
         try {
             NodeList actions = racine.getElementsByTagName("action");
             for (int localI = 0; localI < actions.getLength(); localI++) {
@@ -107,7 +107,7 @@ public class FactoryXMLConfig implements IConfig {
                 NodeList elementsActions = base.getChildNodes();
                 String urlPattern = recupererContenuNoeud(elementsActions, "url-pattern");
                 String classPattern = recupererContenuNoeud(elementsActions, "action-name");
-                Action action = (Action) Class.forName(classPattern).newInstance();
+                IAction action = (IAction) Class.forName(classPattern).newInstance();
                 mapping.put(urlPattern, action);
             }
         } catch (DOMException | InstantiationException | IllegalAccessException
@@ -138,8 +138,8 @@ public class FactoryXMLConfig implements IConfig {
      * {@inheritDoc}
      */
     @Override
-    public Map<String, ActionForm> remplirMapForm() {
-        Map<String, ActionForm> lesActionsForms = new HashMap<>();
+    public Map<String, IActionForm> remplirMapForm() {
+        Map<String, IActionForm> lesActionsForms = new HashMap<>();
         try {
             NodeList actions = racine.getElementsByTagName("form");
             for (int localI = 0; localI < actions.getLength(); localI++) {
@@ -147,7 +147,7 @@ public class FactoryXMLConfig implements IConfig {
                 NodeList elementsActions = base.getChildNodes();
                 String urlPattern = recupererContenuNoeud(elementsActions, "form-name");
                 String classPattern = recupererContenuNoeud(elementsActions, "form-class");
-                ActionForm action = (ActionForm) Class.forName(classPattern).newInstance();
+                IActionForm action = (IActionForm) Class.forName(classPattern).newInstance();
                 lesActionsForms.put(urlPattern, action);
             }
         } catch (DOMException | InstantiationException | IllegalAccessException

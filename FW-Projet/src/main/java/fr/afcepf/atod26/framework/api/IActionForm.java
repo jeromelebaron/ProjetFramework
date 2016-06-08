@@ -11,7 +11,7 @@ import java.util.Map;
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public interface ActionForm {
+public interface IActionForm {
 
     /**
      * Pour savoir si le formulaire est valide ou pas.

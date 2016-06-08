@@ -6,7 +6,7 @@ package fr.afcepf.atod26.framework.formbeans;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.afcepf.atod26.framework.api.ActionForm;
+import fr.afcepf.atod26.framework.api.IActionForm;
 
 /**
  * La classe qui correspond au formulaire lié au parttern actionun.
@@ -14,7 +14,7 @@ import fr.afcepf.atod26.framework.api.ActionForm;
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class ActionUnForm implements ActionForm {
+public class ActionUnForm implements IActionForm {
 
     /**
      * Le nom de la personne.

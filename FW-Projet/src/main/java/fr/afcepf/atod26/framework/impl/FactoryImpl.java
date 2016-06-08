@@ -5,8 +5,8 @@ package fr.afcepf.atod26.framework.impl;
 
 import java.util.Map;
 
-import fr.afcepf.atod26.framework.api.Action;
-import fr.afcepf.atod26.framework.api.ActionForm;
+import fr.afcepf.atod26.framework.api.IAction;
+import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.api.IConfig;
 
 /**
@@ -26,19 +26,19 @@ public class FactoryImpl {
      */
     private static IConfig config;
     /**
-     * La map qui contient la correspondance entre une {@link Action} et son {@link ActionForm}.
+     * La map qui contient la correspondance entre une {@link IAction} et son {@link IActionForm}.
      */
     private static Map<String, String> mapping;
     /**
-     * Le mapping de la correspondance entre url et classe {@link Action} concernée.
+     * Le mapping de la correspondance entre url et classe {@link IAction} concernée.
      */
-    private static Map<String, Action> mappingAction;
+    private static Map<String, IAction> mappingAction;
     /**
-     * Le mapping de la correspondance entre et {@link ActionForm}.
+     * Le mapping de la correspondance entre et {@link IActionForm}.
      */
-    private static Map<String, ActionForm> mappingActionForm;
+    private static Map<String, IActionForm> mappingActionForm;
     /**
-     * La map qui contient la correspondance entre une {@link Action} et sa vue.
+     * La map qui contient la correspondance entre une {@link IAction} et sa vue.
      */
     private static Map<String, String> mappingView;
     /**
@@ -62,20 +62,20 @@ public class FactoryImpl {
     }
 
     /**
-     * Pour récupérer une classe de type {@link Action} en fonction d'un url-pattern.
+     * Pour récupérer une classe de type {@link IAction} en fonction d'un url-pattern.
      * @param paramPath le pattern pour lequel récupérer la classe.
-     * @return l'instance d'{@link Action} correspondante.
+     * @return l'instance d'{@link IAction} correspondante.
      */
-    public static Action fabriqueAction(String paramPath) {
+    public static IAction fabriqueAction(String paramPath) {
         return mappingAction.get(paramPath);
     }
 
     /**
-     * Pour récupérer une classe de type {@link ActionForm} en fonction d'un form-name.
+     * Pour récupérer une classe de type {@link IActionForm} en fonction d'un form-name.
      * @param paramActionForm le form-name pour lequel récupérer la classe.
-     * @return l'instance de {@link ActionForm} correspondante.
+     * @return l'instance de {@link IActionForm} correspondante.
      */
-    public static ActionForm fabriqueActionForm(String paramActionForm) {
+    public static IActionForm fabriqueActionForm(String paramActionForm) {
         return mappingActionForm.get(paramActionForm);
     }
 

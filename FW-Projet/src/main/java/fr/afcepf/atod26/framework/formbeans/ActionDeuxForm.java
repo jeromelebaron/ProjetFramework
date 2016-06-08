@@ -6,7 +6,7 @@ package fr.afcepf.atod26.framework.formbeans;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.afcepf.atod26.framework.api.ActionForm;
+import fr.afcepf.atod26.framework.api.IActionForm;
 
 /**
  * Description de la classe
@@ -14,7 +14,7 @@ import fr.afcepf.atod26.framework.api.ActionForm;
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class ActionDeuxForm implements ActionForm {
+public class ActionDeuxForm implements IActionForm {
 
     private String prenom;
 

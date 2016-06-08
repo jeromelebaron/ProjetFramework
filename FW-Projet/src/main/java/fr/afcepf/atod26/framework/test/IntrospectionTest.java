@@ -6,7 +6,7 @@ package fr.afcepf.atod26.framework.test;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.afcepf.atod26.framework.api.ActionForm;
+import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.formbeans.ActionUnForm;
 import fr.afcepf.atod26.framework.impl.MyBeanPopulate;
 
@@ -23,7 +23,7 @@ public class IntrospectionTest {
      */
     public static void main(String[] args) {
         MyBeanPopulate localBeanPopulate = new MyBeanPopulate();
-        ActionForm actionUn = new ActionUnForm();
+        IActionForm actionUn = new ActionUnForm();
         Map<String, String> mapTest = new HashMap<>();
         mapTest.put("nom", "jer");
         mapTest.put("age", "23");

@@ -16,8 +16,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import fr.afcepf.atod26.framework.api.Action;
-import fr.afcepf.atod26.framework.api.ActionForm;
+import fr.afcepf.atod26.framework.api.IAction;
+import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.api.IConfig;
 import fr.afcepf.atod26.framework.impl.FactoryXMLConfig;
 
@@ -56,9 +56,9 @@ public class XMLTest {
                 }
             }
         }
-        Map<String, Action> test = config.remplirMapAction();
+        Map<String, IAction> test = config.remplirMapAction();
         System.out.println(test);
-        Map<String, ActionForm> testForm = config.remplirMapForm();
+        Map<String, IActionForm> testForm = config.remplirMapForm();
         System.out.println(testForm);
         Map<String, String> testMapping = config.remplirMap("action", "url-pattern", "form-name");
         System.out.println(testMapping);

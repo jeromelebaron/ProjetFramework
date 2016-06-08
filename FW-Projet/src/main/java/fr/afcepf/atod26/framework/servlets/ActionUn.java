@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import fr.afcepf.atod26.framework.api.Action;
+import fr.afcepf.atod26.framework.api.IAction;
 
 /**
  * La classe qui permet d'aller sur path /actionun
@@ -16,7 +16,7 @@ import fr.afcepf.atod26.framework.api.Action;
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class ActionUn implements Action {
+public class ActionUn implements IAction {
 
     /**
      * Pour faire du log.

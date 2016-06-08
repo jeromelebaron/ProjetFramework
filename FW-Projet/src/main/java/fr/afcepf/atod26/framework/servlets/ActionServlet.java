@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import fr.afcepf.atod26.framework.api.ActionForm;
+import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.impl.FactoryImpl;
 import fr.afcepf.atod26.framework.impl.MyBeanPopulate;
 
@@ -56,7 +56,7 @@ public class ActionServlet extends HttpServlet {
         final String servletPath = request.getServletPath();
         final String path = servletPath.substring(1, servletPath.lastIndexOf("frm") - 1);
         String view = "index.html";
-        final ActionForm actionForm = FactoryImpl.fabriqueActionForm(FactoryImpl
+        final IActionForm actionForm = FactoryImpl.fabriqueActionForm(FactoryImpl
                 .fabriqueCorrespondanceActionEtForm(path));
         final MyBeanPopulate localBeanPopulate = new MyBeanPopulate();
         localBeanPopulate.populateBean(actionForm, recupereParametresRequete(request));

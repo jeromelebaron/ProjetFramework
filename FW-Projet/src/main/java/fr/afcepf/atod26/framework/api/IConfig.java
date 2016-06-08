@@ -17,13 +17,13 @@ public interface IConfig {
      * Pour construire la Map avec la correspondance entre url pattern et classe correspondante.
      * @return la map remplie.
      */
-    Map<String, Action> remplirMapAction();
+    Map<String, IAction> remplirMapAction();
 
     /**
-     * Pour remplir la map des classes qui implémentent {@link ActionForm}
+     * Pour remplir la map des classes qui implémentent {@link IActionForm}
      * @return la map avec en clé le form-name et en valeur l'instance de la classe correspondante.
      */
-    Map<String, ActionForm> remplirMapForm();
+    Map<String, IActionForm> remplirMapForm();
 
     /**
      * La map avec la correspondance entre la cle et la valeur du tag parent précisé.

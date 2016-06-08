@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Interface pour éxécuter les méthodes.
+ * Interface pour la redirection des implémentations.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public interface Action {
+public interface IAction {
 
     /**
      * Pour éxécuter les actions.
