@@ -7,6 +7,7 @@ import java.util.Map;
 
 import fr.afcepf.atod26.framework.api.Action;
 import fr.afcepf.atod26.framework.api.ActionForm;
+import fr.afcepf.atod26.framework.api.IConfig;
 
 /**
  * Factory pour récupérer les éléments du fichier XML.
@@ -20,6 +21,10 @@ public class FactoryImpl {
      * Singleton
      */
     private static FactoryImpl factoryImpl;
+    /**
+     * L'instance nécessaire pour récupérer la configuration du framework.
+     */
+    private static IConfig config;
     /**
      * La map qui contient la correspondance entre une {@link Action} et son {@link ActionForm}.
      */
@@ -43,10 +48,11 @@ public class FactoryImpl {
         if (factoryImpl == null) {
             factoryImpl = new FactoryImpl();
         }
-        mapping = FactoryConfig.remplirMap("action", "url-pattern", "form-name");
-        mappingAction = FactoryConfig.remplirMapAction();
-        mappingActionForm = FactoryConfig.remplirMapForm();
-        mappingView = FactoryConfig.remplirMap("action", "url-pattern", "from-view");
+        config = FactoryXMLConfig.getInstance();
+        mapping = config.remplirMap("action", "url-pattern", "form-name");
+        mappingAction = config.remplirMapAction();
+        mappingActionForm = config.remplirMapForm();
+        mappingView = config.remplirMap("action", "url-pattern", "from-view");
     }
 
     /**

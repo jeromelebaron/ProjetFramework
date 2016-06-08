@@ -21,23 +21,24 @@ import org.xml.sax.SAXException;
 
 import fr.afcepf.atod26.framework.api.Action;
 import fr.afcepf.atod26.framework.api.ActionForm;
+import fr.afcepf.atod26.framework.api.IConfig;
 
 /**
- * Les méthodes pour le chargement de la configuration du fichier XML.
+ * L'implémentation pour la configuration du framework avec le fichier XML.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class FactoryConfig {
+public class FactoryXMLConfig implements IConfig {
 
     /**
      * Singleton
      */
-    private static FactoryConfig factoryConfig;
+    private static FactoryXMLConfig factoryXMLConfig;
     /**
      * Pour faire du log.
      */
-    private static final Logger LOGGER = Logger.getLogger(FactoryConfig.class);
+    private static final Logger LOGGER = Logger.getLogger(FactoryXMLConfig.class);
     /**
      * Le chemin du fichier de configuration.
      */
@@ -63,8 +64,8 @@ public class FactoryConfig {
      * différents éléments nécessaires à la récupération des éléments dans le fichier XML.
      */
     static {
-        if (factoryConfig == null) {
-            factoryConfig = new FactoryConfig();
+        if (factoryXMLConfig == null) {
+            factoryXMLConfig = new FactoryXMLConfig();
         }
         pathFichier = Thread.currentThread().getContextClassLoader().getResource("config.xml")
                 .getPath();
@@ -81,15 +82,23 @@ public class FactoryConfig {
     /**
      * Constructeur privé.
      */
-    private FactoryConfig() {
+    private FactoryXMLConfig() {
         // EMPTY
     }
 
     /**
-     * Pour construire la Map avec la correspondance entre url pattern et classe correspondante.
-     * @return la map remplie.
+     * Pour récupérer l'instance du singleton de la classe.
+     * @return l'instance de {@link FactoryXMLConfig}.
      */
-    public static Map<String, Action> remplirMapAction() {
+    public static FactoryXMLConfig getInstance() {
+        return factoryXMLConfig;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, Action> remplirMapAction() {
         Map<String, Action> mapping = new HashMap<>();
         try {
             NodeList actions = racine.getElementsByTagName("action");
@@ -126,11 +135,10 @@ public class FactoryConfig {
     }
 
     /**
-     * Pour remplir la map des classes qui implémentent {@link ActionForm} déclarées dans le fichier
-     * XML.
-     * @return la map avec en clé le form-name et en valeur l'instance de la classe correspondante.
+     * {@inheritDoc}
      */
-    public static Map<String, ActionForm> remplirMapForm() {
+    @Override
+    public Map<String, ActionForm> remplirMapForm() {
         Map<String, ActionForm> lesActionsForms = new HashMap<>();
         try {
             NodeList actions = racine.getElementsByTagName("form");
@@ -150,14 +158,10 @@ public class FactoryConfig {
     }
 
     /**
-     * La map avec la correspondance entre la cle et la valeur du tag parent précisé.
-     * @param paramTagParent le nom du tag.
-     * @param paramCle la balise enfant de ce tag dont le contenu servira de clef.
-     * @param paramValeur la balise enfant de ce tage dont le contenu servira de valeur.
-     * @return une map avec cle et valeur passée en paramètre.
+     * {@inheritDoc}
      */
-    public static Map<String, String> remplirMap(String paramTagParent, String paramCle,
-            String paramValeur) {
+    @Override
+    public Map<String, String> remplirMap(String paramTagParent, String paramCle, String paramValeur) {
         Map<String, String> correspondanceActionForm = new HashMap<>();
         try {
             NodeList actions = racine.getElementsByTagName(paramTagParent);

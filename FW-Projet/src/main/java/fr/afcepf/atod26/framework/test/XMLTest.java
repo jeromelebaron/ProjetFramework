@@ -18,7 +18,8 @@ import org.xml.sax.SAXException;
 
 import fr.afcepf.atod26.framework.api.Action;
 import fr.afcepf.atod26.framework.api.ActionForm;
-import fr.afcepf.atod26.framework.impl.FactoryConfig;
+import fr.afcepf.atod26.framework.api.IConfig;
+import fr.afcepf.atod26.framework.impl.FactoryXMLConfig;
 
 /**
  * Description de la classe
@@ -36,6 +37,7 @@ public class XMLTest {
      */
     public static void main(String[] args) throws ParserConfigurationException, SAXException,
             IOException {
+        IConfig config = FactoryXMLConfig.getInstance();
         String fichier = Thread.currentThread().getContextClassLoader().getResource("config.xml")
                 .getPath();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -54,12 +56,11 @@ public class XMLTest {
                 }
             }
         }
-        Map<String, Action> test = FactoryConfig.remplirMapAction();
+        Map<String, Action> test = config.remplirMapAction();
         System.out.println(test);
-        Map<String, ActionForm> testForm = FactoryConfig.remplirMapForm();
+        Map<String, ActionForm> testForm = config.remplirMapForm();
         System.out.println(testForm);
-        Map<String, String> testMapping = FactoryConfig.remplirMap("action", "url-pattern",
-                "form-name");
+        Map<String, String> testMapping = config.remplirMap("action", "url-pattern", "form-name");
         System.out.println(testMapping);
     }
 
