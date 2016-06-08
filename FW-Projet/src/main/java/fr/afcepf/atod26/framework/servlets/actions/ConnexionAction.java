@@ -12,7 +12,7 @@ import fr.afcepf.atod26.framework.api.IAction;
 import fr.afcepf.atod26.framework.security.LoginBean;
 
 /**
- * Description de la classe
+ * Au moment de la connexion.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$

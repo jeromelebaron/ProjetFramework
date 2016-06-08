@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -14,8 +14,10 @@
 		<h1>Accueil</h1>
 		<nav>
 			<ul class="nav nav-tabs">
-				<li role="presentation" class="active"><a href="#">Home</a></li>
-				<li role="presentation"><a href="secured/profil.frm">Profil</a></li>
+				<li role="presentation" class="active"><a
+					href="${pageContext.request.contextPath}/accueil.jsp">Home</a></li>
+				<li role="presentation"><a
+					href="${pageContext.request.contextPath}/secured/profil.frm">Profil</a></li>
 			</ul>
 		</nav>
 	</div>

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Description de la classe
+ * Contient tous les éléments nécessaires à la connexion.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
@@ -19,11 +19,18 @@ public class LoginBean implements Serializable {
      * Sérialisation.
      */
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Le utilisateurs.
+     */
     private static final Map<String, String> USERS;
-
+    /**
+     * Savoir si on est loggé ou pas.
+     */
     private boolean isLogged = false;
 
+    /**
+     * Pour charger les utilisateurs.
+     */
     static {
         USERS = new HashMap<>();
         USERS.put("jerome", "dopler");

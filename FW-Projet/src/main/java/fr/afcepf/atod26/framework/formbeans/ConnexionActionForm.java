@@ -12,7 +12,7 @@ import fr.afcepf.atod26.framework.impl.validation.Validateur;
 import fr.afcepf.atod26.framework.security.LoginBean;
 
 /**
- * Description de la classe
+ * Pour la validation du formulaire de connexion.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$

@@ -10,7 +10,7 @@ import fr.afcepf.atod26.framework.annotations.Obligatoire;
 import fr.afcepf.atod26.framework.api.IValidateur;
 
 /**
- * Description de la classe
+ * Pour la validation de l'annotation {@link Obligatoire};
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$

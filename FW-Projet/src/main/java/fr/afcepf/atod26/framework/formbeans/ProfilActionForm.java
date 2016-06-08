@@ -9,7 +9,7 @@ import java.util.Map;
 import fr.afcepf.atod26.framework.api.IActionForm;
 
 /**
- * Description de la classe
+ * Pour la validation du formulaire du profil.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
