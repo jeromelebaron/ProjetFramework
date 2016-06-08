@@ -7,12 +7,21 @@
 		  <form-name>ConnexionForm</form-name>
 		  <from-view>connexion.jsp</from-view>
 		</action>
+		<action>
+          <action-name>fr.afcepf.atod26.framework.servlets.actions.ProfilAction</action-name>
+          <url-pattern>secured/profil</url-pattern>
+          <form-name>ProfilForm</form-name>
+        </action>
 	</actions>
 	<forms>
 		<form>
 		  <form-name>ConnexionForm</form-name>
 		  <form-class>fr.afcepf.atod26.framework.formbeans.ConnexionActionForm</form-class>
 		</form>
+		<form>
+          <form-name>ProfilForm</form-name>
+          <form-class>fr.afcepf.atod26.framework.formbeans.ProfilActionForm</form-class>
+        </form>
 	</forms>
 	<beans>
 	   <bean id="factoryXMLConfig" class="fr.afcepf.atod26.framework.impl.FactoryXMLConfig"/>

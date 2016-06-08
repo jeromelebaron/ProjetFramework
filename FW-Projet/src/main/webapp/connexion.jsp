@@ -14,15 +14,18 @@
 		<h1>Connexion</h1>
 		<form action="connexion.frm" method="post">
 			<div class="form-group">
-				<label>Login : </label> <input type="text" name="nom" value="${nom}" /><span><c:out
-						value="${erreurs['nom'] }"></c:out></span>
+				<label class="col-md-2">Login : </label> <input type="text"
+					name="login" value="${login}" /><span><c:out
+						value="${erreurs['login'] }"></c:out></span>
 			</div>
 			<div class="form-group">
-				<label>Mot de passe : </label> <input type="password" name="age" /><span><c:out
-						value="${erreurs['age'] }"></c:out></span>
+				<label class="col-md-2">Mot de passe : </label> <input
+					type="password" name="password" /><span><c:out
+						value="${erreurs['password'] }"></c:out></span>
 			</div>
 			<div class="form-group">
-				<input type="submit" value="Connexion" class="btn btn-primary">
+				<input type="submit" value="Connexion" class="btn btn-primary"><span><c:out
+						value="${erreurs['authentification'] }"></c:out> </span>
 			</div>
 		</form>
 	</div>

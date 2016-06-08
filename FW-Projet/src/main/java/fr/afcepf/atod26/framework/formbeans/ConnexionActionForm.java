@@ -6,8 +6,10 @@ package fr.afcepf.atod26.framework.formbeans;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.afcepf.atod26.framework.annotations.Obligatoire;
 import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.impl.validation.Validateur;
+import fr.afcepf.atod26.framework.security.LoginBean;
 
 /**
  * Description de la classe
@@ -17,9 +19,11 @@ import fr.afcepf.atod26.framework.impl.validation.Validateur;
  */
 public class ConnexionActionForm implements IActionForm {
 
-    private String nom;
+    @Obligatoire
+    private String login;
 
-    private String motDePasse;
+    @Obligatoire
+    private String password;
 
     /**
      * {@inheritDoc}
@@ -31,6 +35,11 @@ public class ConnexionActionForm implements IActionForm {
             erreurs.putAll(Validateur.validerFormulaire(this));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        }
+        LoginBean loginBean = new LoginBean();
+        loginBean.connexion(login, password);
+        if (!loginBean.isLogged()) {
+            erreurs.put("authentification", "Login ou mot de passe erroné.");
         }
         return erreurs;
     }

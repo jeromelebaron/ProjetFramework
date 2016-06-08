@@ -27,8 +27,9 @@ public class ValidateurObligatoire implements IValidateur {
         final Obligatoire annotObligatoire = paramFieldAValider.getAnnotation(Obligatoire.class);
         if (annotObligatoire != null) {
             final Object localFieldValue = paramFieldAValider.get(objectDuChamps);
-            if (localFieldValue == null) {
+            if (localFieldValue == null || localFieldValue.toString().length() == 0) {
                 erreurs.put(paramFieldAValider.getName(), "Ce champs est obligatoire");
+                isValide = true;
             }
         }
         return isValide;

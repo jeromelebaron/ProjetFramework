@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import fr.afcepf.atod26.framework.api.IAction;
-import fr.afcepf.atod26.framework.security.LoginBean;
 
 /**
  * Description de la classe
@@ -17,23 +16,20 @@ import fr.afcepf.atod26.framework.security.LoginBean;
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class ConnexionAction implements IAction {
+public class ProfilAction implements IAction {
 
     /**
      * Pour faire du log.
      */
-    private Logger logger = Logger.getLogger(ConnexionAction.class);
-
+    private Logger logger = Logger.getLogger(ProfilAction.class);
+    
     /**
      * {@inheritDoc}
      */
     @Override
     public String execute(HttpServletRequest paramRequest, HttpServletResponse paramResponse) {
-        logger.info("je suis dans ConnexionAction");
-        LoginBean loginBean = new LoginBean();
-        loginBean.setLogged(true);
-        paramRequest.getSession().setAttribute("loginBean", loginBean);
-        return "/secured/accueil.jsp";
+        logger.info("je suis dans ProfilAction");
+        return "/secured/profil.jsp";
     }
 
 }
