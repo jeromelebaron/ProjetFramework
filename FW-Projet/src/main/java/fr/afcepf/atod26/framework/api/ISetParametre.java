@@ -6,7 +6,7 @@ package fr.afcepf.atod26.framework.api;
 import java.lang.reflect.Field;
 
 /**
- * Interface qui permet de setter un attribut par introspection en fonction de sont type.
+ * Pour setter un attribut par introspection en fonction de son type.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$

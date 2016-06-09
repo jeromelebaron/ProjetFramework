@@ -4,7 +4,7 @@
 package fr.afcepf.atod26.framework.api;
 
 /**
- * Description de la classe
+ * Regroupe toutes les éléments à fabriquer.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$

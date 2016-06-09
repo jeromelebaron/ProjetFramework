@@ -15,7 +15,7 @@ import java.util.Map;
 public interface IValidateur {
 
     /**
-     * Pour valider si un champs respect les condictions de son annotation.
+     * Pour valider si un champs respecte les condictions de son annotation.
      * @param paramFieldAValider le champs à valider.
      * @return l'erreur si il y a lieu.
      * @throws IllegalAccessException

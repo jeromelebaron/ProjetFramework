@@ -19,9 +19,15 @@ import fr.afcepf.atod26.framework.security.LoginBean;
  */
 public class ConnexionActionForm implements IActionForm {
 
+    /**
+     * Le login de connexion.
+     */
     @Obligatoire
     private String login;
 
+    /**
+     * Le mot de passe.
+     */
     @Obligatoire
     private String password;
 

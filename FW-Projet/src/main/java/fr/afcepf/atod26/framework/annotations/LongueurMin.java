@@ -9,7 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation pour vérifier la longueur maximum d'une chaine de caractères.
+ * Pour vérifier la longueur maximum d'une chaine de caractères.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$

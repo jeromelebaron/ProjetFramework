@@ -45,8 +45,8 @@ public class LoginBean implements Serializable {
 
     /**
      * Pour se connecter.
-     * @param paramLogin
-     * @param paramMotDePass
+     * @param paramLogin le login à vérifier.
+     * @param paramMotDePass le mot de passe à vérifier.
      */
     public void connexion(String paramLogin, String paramMotDePass) {
         if (USERS.get(paramLogin) != null && paramMotDePass.equals(USERS.get(paramLogin))) {

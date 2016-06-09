@@ -6,7 +6,7 @@ package fr.afcepf.atod26.framework.api;
 import java.util.Map;
 
 /**
- * L'interface pour la validation des formulaires.
+ * Pour la validation des formulaires.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
@@ -15,7 +15,7 @@ public interface IActionForm {
 
     /**
      * Pour savoir si le formulaire est valide ou pas.
-     * @return <code>true</code> si c'est bon, <code>false</code> sinon.
+     * @return une Map qui contient des erreurs si il y en a, une map vide sinon.
      */
     Map<String, String> validateForm();
 }

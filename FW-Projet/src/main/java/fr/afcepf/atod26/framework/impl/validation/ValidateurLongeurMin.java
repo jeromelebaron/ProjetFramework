@@ -10,7 +10,7 @@ import fr.afcepf.atod26.framework.annotations.LongueurMin;
 import fr.afcepf.atod26.framework.api.IValidateur;
 
 /**
- * Pour la validation de l'annotation {@link LongeurMin};
+ * Pour la validation de l'annotation {@link LongeurMin}.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$

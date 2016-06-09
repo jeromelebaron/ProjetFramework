@@ -39,8 +39,8 @@ public class Validateur {
      * Pour valider un objet en fonction de ces annotations.
      * @param paramObjetAValider l'objet pour lequel faire la validation.
      * @return une Map avec des erreurs si il y en a.
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
+     * @throws IllegalAccessException au cas ou.
+     * @throws IllegalArgumentException au cas ou.
      */
     public static Map<String, String> validerFormulaire(Object paramObjetAValider)
             throws IllegalAccessException {

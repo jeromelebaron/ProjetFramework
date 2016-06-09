@@ -6,7 +6,7 @@ package fr.afcepf.atod26.framework.api;
 import java.util.Map;
 
 /**
- * Contient les méthodes nécessaires à la configuration du framework.
+ * Les méthodes nécessaires à la configuration du framework.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
@@ -20,7 +20,7 @@ public interface IConfig {
     Map<String, IAction> remplirMapAction();
 
     /**
-     * Pour remplir la map des classes qui implémentent {@link IActionForm}
+     * Pour remplir la map des classes qui implémentent {@link IActionForm}.
      * @return la map avec en clé le form-name et en valeur l'instance de la classe correspondante.
      */
     Map<String, IActionForm> remplirMapForm();

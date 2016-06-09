@@ -212,9 +212,9 @@ public class FactoryXMLConfig implements IConfig {
 
     /**
      * Pour récupérer le contenu d'une propriété d'un noeud.
-     * @param noeud
-     * @param paramAttribut
-     * @return
+     * @param noeud le noeud à scanner.
+     * @param paramAttribut le nom de la balise.
+     * @return le contenu du noeud.
      */
     private static String recuperAttributNoeud(Node noeud, String paramAttribut) {
         NamedNodeMap listeAttribut = noeud.getAttributes();
@@ -229,8 +229,9 @@ public class FactoryXMLConfig implements IConfig {
 
     /**
      * Pour récupérer les valeurs de la balise <code>property</code> d'une balise <code>bean</code>.
-     * @param noeud
-     * @return
+     * @param noeud pour récupérer le contenu des <code>property</code> d'un bean.
+     * @return une map avec en clé la ref du bean (la propriété vers laquelle faire l'injection) et
+     *         en valeur le nom qui correspond à l'id du bean à partir duquel faire l'injection
      */
     private static Map<String, String> recupererProprieteBean(Node noeud) {
         final Map<String, String> proprieteBean = new HashMap<>();
@@ -252,11 +253,11 @@ public class FactoryXMLConfig implements IConfig {
      * Pour récupérer une instance d'un objet même si son constructeur est privé.
      * @param nomClasse le nom complet de la classe pour laquelle créer l'instance.
      * @return un objet du type de la classe passée en paramètre.
-     * @throws NoSuchMethodException
-     * @throws ClassNotFoundException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
+     * @throws NoSuchMethodException au cas ou.
+     * @throws ClassNotFoundException au cas ou.
+     * @throws InstantiationException au cas ou.
+     * @throws IllegalAccessException au cas ou.
+     * @throws InvocationTargetException au cas ou.
      */
     private static Object recupererInstance(String nomClasse) throws NoSuchMethodException,
             ClassNotFoundException, InstantiationException, IllegalAccessException,
@@ -269,9 +270,9 @@ public class FactoryXMLConfig implements IConfig {
     /**
      * Pour setter le singleton de la classe.
      * @param paramNouvelleInstance l'instance pour laquelle setter le singleton.
-     * @throws IllegalAccessException
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
+     * @throws IllegalAccessException au cas ou.
+     * @throws NoSuchMethodException au cas ou.
+     * @throws InvocationTargetException au cas ou.
      */
     private static void setSingleton(Object paramNouvelleInstance) throws IllegalAccessException,
             NoSuchMethodException, InvocationTargetException {
@@ -291,10 +292,10 @@ public class FactoryXMLConfig implements IConfig {
 
     /**
      * Pour setter les attributs par injection de dépendance.
-     * @param paramNouvelleInstance
-     * @param paramProprieteBean
-     * @param paramLesBeans
-     * @throws IllegalAccessException
+     * @param paramNouvelleInstance la nouvelle instance à injecter.
+     * @param paramProprieteBean la map avec les propriétés des bean.
+     * @param paramLesBeans la liste des beans.
+     * @throws IllegalAccessException au cas ou.
      */
     private static void setDependance(Object paramNouvelleInstance,
             Map<String, String> paramProprieteBean, Map<String, Object> paramLesBeans)
