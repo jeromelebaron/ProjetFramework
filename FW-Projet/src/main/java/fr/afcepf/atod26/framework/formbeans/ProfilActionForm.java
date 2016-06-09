@@ -6,6 +6,8 @@ package fr.afcepf.atod26.framework.formbeans;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import fr.afcepf.atod26.framework.api.IActionForm;
 
 /**
@@ -17,10 +19,16 @@ import fr.afcepf.atod26.framework.api.IActionForm;
 public class ProfilActionForm implements IActionForm {
 
     /**
+     * Pour faire du log.
+     */
+    private static final Logger LOGGER = Logger.getLogger(ProfilActionForm.class);
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public Map<String, String> validateForm() {
+        LOGGER.debug("Méthode validateForm");
         Map<String, String> erreurs = new HashMap<>();
         return erreurs;
     }

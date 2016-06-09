@@ -5,6 +5,8 @@ package fr.afcepf.atod26.framework.impl;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import fr.afcepf.atod26.framework.api.IAction;
 import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.api.IConfig;
@@ -18,6 +20,10 @@ import fr.afcepf.atod26.framework.api.IFactory;
  */
 public class FactoryImpl implements IFactory {
 
+    /**
+     * Pour faire du log.
+     */
+    private static final Logger LOGGER = Logger.getLogger(FactoryImpl.class);
     /**
      * Singleton.
      */
@@ -67,6 +73,7 @@ public class FactoryImpl implements IFactory {
      */
     @Override
     public IAction fabriqueAction(String paramPath) {
+        LOGGER.debug("Méthode fabriqueAction");
         if (mappingAction == null) {
             mappingAction = config.remplirMapAction();
         }
@@ -78,6 +85,7 @@ public class FactoryImpl implements IFactory {
      */
     @Override
     public IActionForm fabriqueActionForm(String paramActionForm) {
+        LOGGER.debug("Méthode fabriqueActionForm");
         if (mappingActionForm == null) {
             mappingActionForm = config.remplirMapForm();
         }
@@ -89,6 +97,7 @@ public class FactoryImpl implements IFactory {
      */
     @Override
     public String fabriqueCorrespondanceActionEtForm(String paramPath) {
+        LOGGER.debug("Méthode fabriqueCorrespondanceActionEtForm");
         if (mapping == null) {
             mapping = config.remplirMap("action", "url-pattern", "form-name");
         }
@@ -100,6 +109,7 @@ public class FactoryImpl implements IFactory {
      */
     @Override
     public String getView(String paramPath) {
+        LOGGER.debug("Méthode getView");
         if (mappingView == null) {
             mappingView = config.remplirMap("action", "url-pattern", "from-view");
         }
@@ -111,6 +121,7 @@ public class FactoryImpl implements IFactory {
      */
     @Override
     public String getForward(String paramActionName, String paramName) {
+        LOGGER.debug("Méthode getForward");
         if (mappingForward == null) {
             mappingForward = config.remplirMapForward();
         }

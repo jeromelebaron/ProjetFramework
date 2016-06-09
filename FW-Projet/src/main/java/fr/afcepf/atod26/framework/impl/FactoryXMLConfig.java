@@ -69,6 +69,7 @@ public class FactoryXMLConfig implements IConfig {
      * différents éléments nécessaires à la récupération des éléments dans le fichier XML.
      */
     static {
+        LOGGER.debug("Chargement des ressources");
         pathFichier = Thread.currentThread().getContextClassLoader().getResource("config.xml")
                 .getPath();
         factory = DocumentBuilderFactory.newInstance();
@@ -101,15 +102,16 @@ public class FactoryXMLConfig implements IConfig {
      */
     @Override
     public Map<String, IAction> remplirMapAction() {
+        LOGGER.debug("Méthode remplirMapAction");
         Map<String, IAction> mapping = new HashMap<>();
         try {
             NodeList actions = racine.getElementsByTagName("action");
             for (int localI = 0; localI < actions.getLength(); localI++) {
-                Node base = actions.item(localI);
-                NodeList elementsActions = base.getChildNodes();
-                String urlPattern = recupererContenuNoeud(elementsActions, "url-pattern");
-                String classPattern = recupererContenuNoeud(elementsActions, "action-name");
-                IAction action = (IAction) Class.forName(classPattern).newInstance();
+                final Node base = actions.item(localI);
+                final NodeList elementsActions = base.getChildNodes();
+                final String urlPattern = recupererContenuNoeud(elementsActions, "url-pattern");
+                final String classPattern = recupererContenuNoeud(elementsActions, "action-name");
+                final IAction action = (IAction) Class.forName(classPattern).newInstance();
                 mapping.put(urlPattern, action);
             }
         } catch (DOMException | InstantiationException | IllegalAccessException
@@ -126,9 +128,11 @@ public class FactoryXMLConfig implements IConfig {
      * @return la contenu de le balise.
      */
     private static String recupererContenuNoeud(NodeList listeNoeud, String nomNoeud) {
+        LOGGER.debug("Méthode recupererContenuNoeud");
+        LOGGER.debug("Param nomNoeud " + nomNoeud);
         String urlPattern = null;
         for (int localI2 = 0; localI2 < listeNoeud.getLength(); localI2++) {
-            Node enfant = listeNoeud.item(localI2);
+            final Node enfant = listeNoeud.item(localI2);
             if (nomNoeud.equals(enfant.getNodeName())) {
                 urlPattern = enfant.getTextContent();
             }
@@ -141,15 +145,16 @@ public class FactoryXMLConfig implements IConfig {
      */
     @Override
     public Map<String, IActionForm> remplirMapForm() {
+        LOGGER.debug("Méthode remplirMapForm");
         Map<String, IActionForm> lesActionsForms = new HashMap<>();
         try {
             NodeList actions = racine.getElementsByTagName("form");
             for (int localI = 0; localI < actions.getLength(); localI++) {
-                Node base = actions.item(localI);
-                NodeList elementsActions = base.getChildNodes();
-                String urlPattern = recupererContenuNoeud(elementsActions, "form-name");
-                String classPattern = recupererContenuNoeud(elementsActions, "form-class");
-                IActionForm action = (IActionForm) Class.forName(classPattern).newInstance();
+                final Node base = actions.item(localI);
+                final NodeList elementsActions = base.getChildNodes();
+                final String urlPattern = recupererContenuNoeud(elementsActions, "form-name");
+                final String classPattern = recupererContenuNoeud(elementsActions, "form-class");
+                final IActionForm action = (IActionForm) Class.forName(classPattern).newInstance();
                 lesActionsForms.put(urlPattern, action);
             }
         } catch (DOMException | InstantiationException | IllegalAccessException
@@ -164,14 +169,18 @@ public class FactoryXMLConfig implements IConfig {
      */
     @Override
     public Map<String, String> remplirMap(String paramTagParent, String paramCle, String paramValeur) {
+        LOGGER.debug("Méthode remplirMap");
+        LOGGER.debug("Param paramTagParent " + paramTagParent);
+        LOGGER.debug("Param paramCle " + paramCle);
+        LOGGER.debug("Param paramValeur " + paramValeur);
         Map<String, String> correspondanceActionForm = new HashMap<>();
         try {
-            NodeList actions = racine.getElementsByTagName(paramTagParent);
+            final NodeList actions = racine.getElementsByTagName(paramTagParent);
             for (int localI = 0; localI < actions.getLength(); localI++) {
-                Node base = actions.item(localI);
-                NodeList elementsActions = base.getChildNodes();
-                String urlPattern = recupererContenuNoeud(elementsActions, paramCle);
-                String classPattern = recupererContenuNoeud(elementsActions, paramValeur);
+                final Node base = actions.item(localI);
+                final NodeList elementsActions = base.getChildNodes();
+                final String urlPattern = recupererContenuNoeud(elementsActions, paramCle);
+                final String classPattern = recupererContenuNoeud(elementsActions, paramValeur);
                 correspondanceActionForm.put(urlPattern, classPattern);
             }
         } catch (DOMException e) {
@@ -184,11 +193,12 @@ public class FactoryXMLConfig implements IConfig {
      * {@inheritDoc}
      */
     public static Map<String, Object> remplirMapBeans() {
+        LOGGER.debug("Méthode remplirMapBeans");
         Map<String, Object> lesBeans = new HashMap<>();
         try {
             NodeList actions = racine.getElementsByTagName("bean");
             for (int localI = 0; localI < actions.getLength(); localI++) {
-                Node base = actions.item(localI);
+                final Node base = actions.item(localI);
                 final String id = recuperAttributNoeud(base, "id");
                 final String instance = recuperAttributNoeud(base, "class");
                 Map<String, String> proprieteBean = null;
@@ -215,24 +225,23 @@ public class FactoryXMLConfig implements IConfig {
      */
     @Override
     public Map<String, Map<String, String>> remplirMapForward() {
+        LOGGER.debug("Méthode remplirMapForward");
         Map<String, Map<String, String>> lesForwards = new HashMap<>();
         try {
-            NodeList actions = racine.getElementsByTagName("action");
+            final NodeList actions = racine.getElementsByTagName("action");
             for (int localI = 0; localI < actions.getLength(); localI++) {
-                Node base = actions.item(localI);
-                NodeList elementsActions = base.getChildNodes();
-                Map<String, String> secondeMap = new HashMap<>();
+                final Node base = actions.item(localI);
+                final NodeList elementsActions = base.getChildNodes();
+                final Map<String, String> secondeMap = new HashMap<>();
                 String cle = null;
-                String cleSecondeMap = null;
-                String valeurSecondeMap = null;
                 for (int localI2 = 0; localI2 < elementsActions.getLength(); localI2++) {
                     Node noeud = elementsActions.item(localI2);
                     if ("action-name".equals(noeud.getNodeName())) {
                         cle = noeud.getTextContent();
                     }
                     if ("forward".equals(noeud.getNodeName())) {
-                        cleSecondeMap = recuperAttributNoeud(noeud, "name");
-                        valeurSecondeMap = recuperAttributNoeud(noeud, "path");
+                        final String cleSecondeMap = recuperAttributNoeud(noeud, "name");
+                        final String valeurSecondeMap = recuperAttributNoeud(noeud, "path");
                         secondeMap.put(cleSecondeMap, valeurSecondeMap);
                     }
                 }
@@ -251,7 +260,9 @@ public class FactoryXMLConfig implements IConfig {
      * @return le contenu du noeud.
      */
     private static String recuperAttributNoeud(Node noeud, String paramAttribut) {
-        NamedNodeMap listeAttribut = noeud.getAttributes();
+        LOGGER.debug("Méthode recuperAttributNoeud");
+        LOGGER.debug("Param paramAttribut " + paramAttribut);
+        final NamedNodeMap listeAttribut = noeud.getAttributes();
         String valeurAttribut = null;
         for (int localI = 0; localI < listeAttribut.getLength(); localI++) {
             if (paramAttribut.equals(listeAttribut.item(localI).getNodeName())) {
@@ -268,11 +279,12 @@ public class FactoryXMLConfig implements IConfig {
      *         en valeur le nom qui correspond à l'id du bean à partir duquel faire l'injection
      */
     private static Map<String, String> recupererProprieteBean(Node noeud) {
+        LOGGER.debug("Méthode recupererProprieteBean");
         final Map<String, String> proprieteBean = new HashMap<>();
         Node noeudProperty = null;
-        NodeList listeNoeud = noeud.getChildNodes();
+        final NodeList listeNoeud = noeud.getChildNodes();
         for (int localI = 0; localI < listeNoeud.getLength(); localI++) {
-            Node enfant = listeNoeud.item(localI);
+            final Node enfant = listeNoeud.item(localI);
             if ("property".equals(enfant.getNodeName())) {
                 noeudProperty = enfant;
             }
@@ -296,6 +308,8 @@ public class FactoryXMLConfig implements IConfig {
     private static Object recupererInstance(String nomClasse) throws NoSuchMethodException,
             ClassNotFoundException, InstantiationException, IllegalAccessException,
             InvocationTargetException {
+        LOGGER.debug("Méthode recupererInstance");
+        LOGGER.debug("Param nomClasse " + nomClasse);
         final Constructor<?> constructeur = Class.forName(nomClasse).getDeclaredConstructor();
         constructeur.setAccessible(true);
         return constructeur.newInstance();
@@ -310,9 +324,10 @@ public class FactoryXMLConfig implements IConfig {
      */
     private static void setSingleton(Object paramNouvelleInstance) throws IllegalAccessException,
             NoSuchMethodException, InvocationTargetException {
-        Class<? extends Object> c = paramNouvelleInstance.getClass();
-        String nomSetter = "set" + c.getSimpleName();
-        Method setSingleton = c.getMethod(nomSetter, paramNouvelleInstance.getClass());
+        LOGGER.debug("Méthode setSingleton");
+        final Class<? extends Object> c = paramNouvelleInstance.getClass();
+        final String nomSetter = "set" + c.getSimpleName();
+        final Method setSingleton = c.getMethod(nomSetter, paramNouvelleInstance.getClass());
         setSingleton.invoke(c, paramNouvelleInstance);
     }
 
@@ -334,9 +349,10 @@ public class FactoryXMLConfig implements IConfig {
     private static void setDependance(Object paramNouvelleInstance,
             Map<String, String> paramProprieteBean, Map<String, Object> paramLesBeans)
             throws IllegalAccessException {
+        LOGGER.debug("Méthode setDependance");
         for (String clefBean : paramLesBeans.keySet()) {
             if (paramProprieteBean.get(clefBean) != null) {
-                Class<? extends Object> c = paramNouvelleInstance.getClass();
+                final Class<? extends Object> c = paramNouvelleInstance.getClass();
                 final Field[] lesAttributs = c.getDeclaredFields();
                 for (Field localField : lesAttributs) {
                     if (paramProprieteBean.get(clefBean).equals(localField.getName())) {

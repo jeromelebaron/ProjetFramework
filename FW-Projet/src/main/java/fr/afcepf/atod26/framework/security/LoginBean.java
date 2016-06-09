@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 /**
  * Contient tous les éléments nécessaires à la connexion.
  * @author Jérome LE BARON
@@ -19,6 +21,10 @@ public class LoginBean implements Serializable {
      * Sérialisation.
      */
     private static final long serialVersionUID = 1L;
+    /**
+     * Pour faire du log.
+     */
+    private static final Logger LOGGER = Logger.getLogger(LoginBean.class);
     /**
      * Le utilisateurs.
      */
@@ -49,6 +55,7 @@ public class LoginBean implements Serializable {
      * @param paramMotDePass le mot de passe à vérifier.
      */
     public void connexion(String paramLogin, String paramMotDePass) {
+        LOGGER.debug("Méthode connexion");
         if (USERS.get(paramLogin) != null && paramMotDePass.equals(USERS.get(paramLogin))) {
             isLogged = true;
         }

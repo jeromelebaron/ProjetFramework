@@ -5,6 +5,8 @@ package fr.afcepf.atod26.framework.impl.param;
 
 import java.lang.reflect.Field;
 
+import org.apache.log4j.Logger;
+
 import fr.afcepf.atod26.framework.api.ISetParametre;
 
 /**
@@ -16,11 +18,17 @@ import fr.afcepf.atod26.framework.api.ISetParametre;
 public class SetParametreString implements ISetParametre {
 
     /**
+     * Pour faire du log.
+     */
+    private static final Logger LOGGER = Logger.getLogger(SetParametreString.class);
+    
+    /**
      * {@inheritDoc}
      */
     @Override
     public void setParametre(Field paramField, Object paramObject, String nameField)
             throws IllegalAccessException {
+        LOGGER.debug("Méthode setParametre");
         paramField.setAccessible(true);
         paramField.set(paramObject, nameField);
     }

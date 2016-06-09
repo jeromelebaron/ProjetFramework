@@ -23,7 +23,7 @@ public class ConnexionAction implements IAction {
     /**
      * Pour faire du log.
      */
-    private Logger logger = Logger.getLogger(ConnexionAction.class);
+    private static final Logger LOGGER = Logger.getLogger(ConnexionAction.class);
     /**
      * Pour récupérer le mapping d'url.
      */
@@ -34,8 +34,8 @@ public class ConnexionAction implements IAction {
      */
     @Override
     public String execute(HttpServletRequest paramRequest, HttpServletResponse paramResponse) {
-        logger.info("je suis dans ConnexionAction");
-        LoginBean loginBean = new LoginBean();
+        LOGGER.debug("Méthode execute");
+        final LoginBean loginBean = new LoginBean();
         loginBean.setLogged(true);
         paramRequest.getSession().setAttribute("loginBean", loginBean);
         return factoryImpl.getForward(this.getClass().getName(), "success");

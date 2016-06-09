@@ -25,7 +25,7 @@ public class ProfilAction implements IAction {
     /**
      * Pour faire du log.
      */
-    private Logger logger = Logger.getLogger(ProfilAction.class);
+    private static final Logger LOGGER = Logger.getLogger(ProfilAction.class);
     /**
      * Pour récupérer le mapping d'url.
      */
@@ -36,8 +36,8 @@ public class ProfilAction implements IAction {
      */
     @Override
     public String execute(HttpServletRequest paramRequest, HttpServletResponse paramResponse) {
-        logger.info("je suis dans ProfilAction");
-        List<String> artistes = new ArrayList<>();
+        LOGGER.debug("Méthode execute");
+        final List<String> artistes = new ArrayList<>();
         artistes.add("Metallica");
         artistes.add("Iron Maiden");
         paramRequest.setAttribute("artistes", artistes);

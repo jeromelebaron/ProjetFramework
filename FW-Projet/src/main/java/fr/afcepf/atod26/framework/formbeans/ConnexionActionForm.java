@@ -21,6 +21,9 @@ import fr.afcepf.atod26.framework.security.LoginBean;
  */
 public class ConnexionActionForm implements IActionForm {
 
+    /**
+     * Pour faire du log.
+     */
     private static final Logger LOGGER = Logger.getLogger(ConnexionActionForm.class);
 
     /**
@@ -40,6 +43,7 @@ public class ConnexionActionForm implements IActionForm {
      */
     @Override
     public Map<String, String> validateForm() {
+        LOGGER.debug("Méthode validateForm");
         Map<String, String> erreurs = new HashMap<>();
         try {
             erreurs.putAll(Validateur.validerFormulaire(this));

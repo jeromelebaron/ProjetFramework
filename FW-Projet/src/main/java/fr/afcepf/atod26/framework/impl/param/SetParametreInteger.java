@@ -17,6 +17,9 @@ import fr.afcepf.atod26.framework.api.ISetParametre;
  */
 public class SetParametreInteger implements ISetParametre {
 
+    /**
+     * Pour faire du log.
+     */
     private static final Logger LOGGER = Logger.getLogger(SetParametreInteger.class);
 
     /**
@@ -26,6 +29,7 @@ public class SetParametreInteger implements ISetParametre {
     public void setParametre(Field paramField, Object paramObject, String paramNameField)
             throws IllegalAccessException {
         paramField.setAccessible(true);
+        LOGGER.debug("Méthode setParametre");
         Integer entier = null;
         if (paramNameField != null && !paramNameField.isEmpty()) {
             try {
