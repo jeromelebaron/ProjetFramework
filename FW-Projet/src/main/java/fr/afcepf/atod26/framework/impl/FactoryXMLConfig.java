@@ -233,12 +233,10 @@ public class FactoryXMLConfig implements IConfig {
                     if ("forward".equals(noeud.getNodeName())) {
                         cleSecondeMap = recuperAttributNoeud(noeud, "name");
                         valeurSecondeMap = recuperAttributNoeud(noeud, "path");
+                        secondeMap.put(cleSecondeMap, valeurSecondeMap);
                     }
                 }
-                if (cle != null && cleSecondeMap != null && valeurSecondeMap != null) {
-                    secondeMap.put(cleSecondeMap, valeurSecondeMap);
-                    lesForwards.put(cle, secondeMap);
-                }
+                lesForwards.put(cle, secondeMap);
             }
         } catch (DOMException e) {
             LOGGER.error("Erreur lors du remplissage des forward", e);

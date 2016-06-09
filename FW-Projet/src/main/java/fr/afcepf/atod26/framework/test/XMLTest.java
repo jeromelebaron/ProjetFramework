@@ -20,7 +20,6 @@ import fr.afcepf.atod26.framework.api.IAction;
 import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.impl.FactoryXMLConfig;
 import fr.afcepf.atod26.framework.servlets.actions.ConnexionAction;
-import fr.afcepf.atod26.framework.servlets.actions.ProfilAction;
 
 /**
  * Description de la classe
@@ -66,7 +65,8 @@ public class XMLTest {
         System.out.println(testMapping);
         Map<String, Map<String, String>> testForward = config.remplirMapForward();
         System.out.println("Map forward" + testForward);
-        IAction localAction = new ProfilAction();
+        IAction localAction = new ConnexionAction();
+        System.out.println(localAction.getClass().getName());
         System.out.println(testForward.get(localAction.getClass().getName()).get("success"));
        
     }
