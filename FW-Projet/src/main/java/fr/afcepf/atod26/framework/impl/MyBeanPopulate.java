@@ -54,7 +54,7 @@ public class MyBeanPopulate {
                     localISetParametre.setParametre(localField, paramObject,
                             paramMapParametresPage.get(localField.getName()));
                 } catch (IllegalArgumentException | IllegalAccessException e) {
-                    LOGGER.error(e);
+                    LOGGER.error("Erreur lors du peuplement du bean", e);
                 }
             }
         }

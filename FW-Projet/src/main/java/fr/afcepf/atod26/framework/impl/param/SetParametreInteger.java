@@ -5,6 +5,8 @@ package fr.afcepf.atod26.framework.impl.param;
 
 import java.lang.reflect.Field;
 
+import org.apache.log4j.Logger;
+
 import fr.afcepf.atod26.framework.api.ISetParametre;
 
 /**
@@ -15,6 +17,8 @@ import fr.afcepf.atod26.framework.api.ISetParametre;
  */
 public class SetParametreInteger implements ISetParametre {
 
+    private static final Logger LOGGER = Logger.getLogger(SetParametreInteger.class);
+
     /**
      * {@inheritDoc}
      */
@@ -24,7 +28,11 @@ public class SetParametreInteger implements ISetParametre {
         paramField.setAccessible(true);
         Integer entier = null;
         if (paramNameField != null && !paramNameField.isEmpty()) {
-            entier = Integer.parseInt(paramNameField);
+            try {
+                entier = Integer.parseInt(paramNameField);
+            } catch (NumberFormatException localE) {
+                LOGGER.error("Erreur de parsing", localE);
+            }
         }
         paramField.set(paramObject, entier);
     }

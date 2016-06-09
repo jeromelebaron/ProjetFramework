@@ -3,6 +3,7 @@
  */
 package fr.afcepf.atod26.framework.api;
 
+
 /**
  * Regroupe toutes les éléments à fabriquer.
  * @author Jérome LE BARON
@@ -27,7 +28,7 @@ public interface IFactory {
 
     /**
      * Pour avoir la correspondance entre l'url-pattern et le form-name.
-     * @param paramPath
+     * @param paramPath l'url-pattern.
      * @return la map avec ces informations.
      */
     String fabriqueCorrespondanceActionEtForm(String paramPath);
@@ -38,4 +39,13 @@ public interface IFactory {
      * @return le chemin de la vue correspondante.
      */
     String getView(String paramPath);
+
+    /**
+     * Pour avoir la forward d'une action en fonction de la propriété <code>name</code> du fichier
+     * de configuration.
+     * @param paramActionName le nom de l'action du fichier xml.
+     * @param paramName la valeur de la propriété name.
+     * @return ou aller.
+     */
+    String getForward(String paramActionName, String paramName);
 }

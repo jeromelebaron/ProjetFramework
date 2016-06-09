@@ -77,7 +77,7 @@ public class FactoryXMLConfig implements IConfig {
             document = builder.parse(pathFichier);
             racine = document.getDocumentElement();
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            LOGGER.error(e);
+            LOGGER.error("Erreur avec le fichier de configuration", e);
         }
     }
 
@@ -114,7 +114,7 @@ public class FactoryXMLConfig implements IConfig {
             }
         } catch (DOMException | InstantiationException | IllegalAccessException
                 | ClassNotFoundException e) {
-            LOGGER.error(e);
+            LOGGER.error("Erreur lors du remplissage des actions", e);
         }
         return mapping;
     }
@@ -154,7 +154,7 @@ public class FactoryXMLConfig implements IConfig {
             }
         } catch (DOMException | InstantiationException | IllegalAccessException
                 | ClassNotFoundException e) {
-            LOGGER.error(e);
+            LOGGER.error("Erreur lors du remplissage des formulaires", e);
         }
         return lesActionsForms;
     }
@@ -175,7 +175,7 @@ public class FactoryXMLConfig implements IConfig {
                 correspondanceActionForm.put(urlPattern, classPattern);
             }
         } catch (DOMException e) {
-            LOGGER.error(e);
+            LOGGER.error("Erreur lors du remplissage", e);
         }
         return correspondanceActionForm;
     }
@@ -205,9 +205,45 @@ public class FactoryXMLConfig implements IConfig {
         } catch (DOMException | InstantiationException | IllegalAccessException
                 | ClassNotFoundException | NoSuchMethodException | IllegalArgumentException
                 | InvocationTargetException e) {
-            LOGGER.error(e);
+            LOGGER.error("Erreur lors du remplissage des beans", e);
         }
         return lesBeans;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, Map<String, String>> remplirMapForward() {
+        Map<String, Map<String, String>> lesForwards = new HashMap<>();
+        try {
+            NodeList actions = racine.getElementsByTagName("action");
+            for (int localI = 0; localI < actions.getLength(); localI++) {
+                Node base = actions.item(localI);
+                NodeList elementsActions = base.getChildNodes();
+                Map<String, String> secondeMap = new HashMap<>();
+                String cle = null;
+                String cleSecondeMap = null;
+                String valeurSecondeMap = null;
+                for (int localI2 = 0; localI2 < elementsActions.getLength(); localI2++) {
+                    Node noeud = elementsActions.item(localI2);
+                    if ("action-name".equals(noeud.getNodeName())) {
+                        cle = noeud.getTextContent();
+                    }
+                    if ("forward".equals(noeud.getNodeName())) {
+                        cleSecondeMap = recuperAttributNoeud(noeud, "name");
+                        valeurSecondeMap = recuperAttributNoeud(noeud, "path");
+                    }
+                }
+                if (cle != null && cleSecondeMap != null && valeurSecondeMap != null) {
+                    secondeMap.put(cleSecondeMap, valeurSecondeMap);
+                    lesForwards.put(cle, secondeMap);
+                }
+            }
+        } catch (DOMException e) {
+            LOGGER.error("Erreur lors du remplissage des forward", e);
+        }
+        return lesForwards;
     }
 
     /**
@@ -312,7 +348,6 @@ public class FactoryXMLConfig implements IConfig {
                 }
             }
         }
-
     }
 
 }

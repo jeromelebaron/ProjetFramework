@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import fr.afcepf.atod26.framework.api.IAction;
+import fr.afcepf.atod26.framework.impl.FactoryImpl;
 import fr.afcepf.atod26.framework.security.LoginBean;
 
 /**
@@ -23,6 +24,10 @@ public class ConnexionAction implements IAction {
      * Pour faire du log.
      */
     private Logger logger = Logger.getLogger(ConnexionAction.class);
+    /**
+     * Pour récupérer le mapping d'url.
+     */
+    private FactoryImpl factoryImpl = FactoryImpl.getInstance();
 
     /**
      * {@inheritDoc}
@@ -33,7 +38,7 @@ public class ConnexionAction implements IAction {
         LoginBean loginBean = new LoginBean();
         loginBean.setLogged(true);
         paramRequest.getSession().setAttribute("loginBean", loginBean);
-        return "/secured/accueil.jsp";
+        return factoryImpl.getForward(this.getClass().getName(), "success");
     }
 
 }

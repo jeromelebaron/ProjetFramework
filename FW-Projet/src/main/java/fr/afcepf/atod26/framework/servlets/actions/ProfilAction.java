@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import fr.afcepf.atod26.framework.api.IAction;
+import fr.afcepf.atod26.framework.impl.FactoryImpl;
 
 /**
  * Pour la redirection vers la page de profil.
@@ -25,6 +26,10 @@ public class ProfilAction implements IAction {
      * Pour faire du log.
      */
     private Logger logger = Logger.getLogger(ProfilAction.class);
+    /**
+     * Pour récupérer le mapping d'url.
+     */
+    private FactoryImpl factoryImpl = FactoryImpl.getInstance();
 
     /**
      * {@inheritDoc}
@@ -36,7 +41,7 @@ public class ProfilAction implements IAction {
         artistes.add("Metallica");
         artistes.add("Iron Maiden");
         paramRequest.setAttribute("artistes", artistes);
-        return "/secured/profil.jsp";
+        return factoryImpl.getForward(this.getClass().getName(), "success");
     }
 
 }

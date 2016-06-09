@@ -33,4 +33,12 @@ public interface IConfig {
      * @return une map avec cle et valeur passée en paramètre.
      */
     Map<String, String> remplirMap(String paramTagParent, String paramCle, String paramValeur);
+
+    /**
+     * Pour remplir la map des forward de chacune des actions.
+     * @return une map avec en clé le nom de l'action et en valeur une map avec comme clé est le nom
+     *         de l'action et comme valeur la liste des forward avec en clé la propriété
+     *         <code>name</code> et en valeur la page ou aller.
+     */
+    Map<String, Map<String, String>> remplirMapForward();
 }

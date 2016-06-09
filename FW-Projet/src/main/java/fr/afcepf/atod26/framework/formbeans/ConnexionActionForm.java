@@ -6,6 +6,8 @@ package fr.afcepf.atod26.framework.formbeans;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import fr.afcepf.atod26.framework.annotations.Obligatoire;
 import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.impl.validation.Validateur;
@@ -18,6 +20,8 @@ import fr.afcepf.atod26.framework.security.LoginBean;
  * @version $Revision$ $Date$
  */
 public class ConnexionActionForm implements IActionForm {
+
+    private static final Logger LOGGER = Logger.getLogger(ConnexionActionForm.class);
 
     /**
      * Le login de connexion.
@@ -40,7 +44,7 @@ public class ConnexionActionForm implements IActionForm {
         try {
             erreurs.putAll(Validateur.validerFormulaire(this));
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            LOGGER.error("Erreur lors de la validation du formulaire", e);
         }
         LoginBean loginBean = new LoginBean();
         loginBean.connexion(login, password);

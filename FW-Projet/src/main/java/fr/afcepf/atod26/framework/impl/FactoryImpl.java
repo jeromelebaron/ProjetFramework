@@ -42,6 +42,10 @@ public class FactoryImpl implements IFactory {
      * La map qui contient la correspondance entre une {@link IAction} et sa vue.
      */
     private Map<String, String> mappingView;
+    /**
+     * La map qui contient les <code>forward</code> des actions.
+     */
+    private Map<String, Map<String, String>> mappingForward;
 
     /**
      * Constructeur.
@@ -100,6 +104,17 @@ public class FactoryImpl implements IFactory {
             mappingView = config.remplirMap("action", "url-pattern", "from-view");
         }
         return mappingView.get(paramPath);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getForward(String paramActionName, String paramName) {
+        if (mappingForward == null) {
+            mappingForward = config.remplirMapForward();
+        }
+        return mappingForward.get(paramActionName).get(paramName);
     }
 
     /**

@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<monframework-config>
+<monframework-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="schema.xsd">
 	<actions>
 		<action>
-		  <action-name>fr.afcepf.atod26.framework.servlets.actions.ConnexionAction</action-name>
-		  <url-pattern>connexion</url-pattern>
-		  <form-name>ConnexionForm</form-name>
-		  <from-view>connexion.jsp</from-view>
+			<action-name>fr.afcepf.atod26.framework.servlets.actions.ConnexionAction</action-name>
+			<url-pattern>connexion</url-pattern>
+			<form-name>ConnexionForm</form-name>
+			<from-view>connexion.jsp</from-view>
+			<forward name="success" path="/secured/accueil.jsp" />
+			<forward name="error" path="/accueil.jsp"/>
 		</action>
 		<action>
-          <action-name>fr.afcepf.atod26.framework.servlets.actions.ProfilAction</action-name>
-          <url-pattern>secured/profil</url-pattern>
-          <form-name>ProfilForm</form-name>
-        </action>
+			<action-name>fr.afcepf.atod26.framework.servlets.actions.ProfilAction</action-name>
+			<url-pattern>secured/profil</url-pattern>
+			<form-name>ProfilForm</form-name>
+			<forward name="success" path="/secured/profil.jsp"/>
+		</action>
 	</actions>
 	<forms>
 		<form>
-		  <form-name>ConnexionForm</form-name>
-		  <form-class>fr.afcepf.atod26.framework.formbeans.ConnexionActionForm</form-class>
+			<form-name>ConnexionForm</form-name>
+			<form-class>fr.afcepf.atod26.framework.formbeans.ConnexionActionForm</form-class>
 		</form>
 		<form>
-          <form-name>ProfilForm</form-name>
-          <form-class>fr.afcepf.atod26.framework.formbeans.ProfilActionForm</form-class>
-        </form>
+			<form-name>ProfilForm</form-name>
+			<form-class>fr.afcepf.atod26.framework.formbeans.ProfilActionForm</form-class>
+		</form>
 	</forms>
 	<beans>
-	   <bean id="factoryXMLConfig" class="fr.afcepf.atod26.framework.impl.FactoryXMLConfig"/>
-	   <bean id="factoryImpl" class="fr.afcepf.atod26.framework.impl.FactoryImpl" >
-	       <property name="config" ref="factoryXMLConfig" />
-	   </bean>
+		<bean id="factoryXMLConfig" class="fr.afcepf.atod26.framework.impl.FactoryXMLConfig" />
+		<bean id="factoryImpl" class="fr.afcepf.atod26.framework.impl.FactoryImpl">
+			<property name="config" ref="factoryXMLConfig" />
+		</bean>
 	</beans>
 </monframework-config>

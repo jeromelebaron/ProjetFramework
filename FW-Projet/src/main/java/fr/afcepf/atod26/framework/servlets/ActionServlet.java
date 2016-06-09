@@ -33,7 +33,7 @@ public class ActionServlet extends HttpServlet {
      */
     private static final long serialVersionUID = 1L;
 
-    private IFactory factory;
+    private final IFactory factory;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -77,7 +77,7 @@ public class ActionServlet extends HttpServlet {
             try {
                 request.getRequestDispatcher(view).forward(request, response);
             } catch (Exception e) {
-                LOGGER.error(e);
+                LOGGER.error("Erreure dans la redirection", e);
             }
         }
     }
