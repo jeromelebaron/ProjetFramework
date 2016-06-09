@@ -30,12 +30,13 @@ public class SecureFilter implements Filter {
      * Pour faire du log.
      */
     private static final Logger LOGGER = Logger.getLogger(ProfilAction.class);
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void destroy() {
+        // EMPTY
     }
 
     /**
@@ -59,6 +60,7 @@ public class SecureFilter implements Filter {
      */
     @Override
     public void init(FilterConfig paramArg0) throws ServletException {
+        // EMPTY
     }
 
 }
