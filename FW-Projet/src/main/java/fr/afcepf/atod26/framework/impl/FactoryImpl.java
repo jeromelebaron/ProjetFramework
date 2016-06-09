@@ -11,6 +11,9 @@ import fr.afcepf.atod26.framework.api.IAction;
 import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.api.IConfig;
 import fr.afcepf.atod26.framework.api.IFactory;
+import fr.afcepf.atod26.framework.impl.entity.ActionXML;
+import fr.afcepf.atod26.framework.impl.entity.FormXML;
+import fr.afcepf.atod26.framework.impl.entity.ForwardXML;
 
 /**
  * Factory pour récupérer les éléments du fichier XML.
@@ -33,25 +36,13 @@ public class FactoryImpl implements IFactory {
      */
     private IConfig config;
     /**
-     * La map qui contient la correspondance entre une {@link IAction} et son {@link IActionForm}.
-     */
-    private Map<String, String> mapping;
-    /**
      * Le mapping de la correspondance entre url et classe {@link IAction} concernée.
      */
-    private Map<String, IAction> mappingAction;
+    private Map<String, ActionXML> mappingAction;
     /**
      * Le mapping de la correspondance entre url et {@link IActionForm}.
      */
-    private Map<String, IActionForm> mappingActionForm;
-    /**
-     * La map qui contient la correspondance entre une {@link IAction} et sa vue.
-     */
-    private Map<String, String> mappingView;
-    /**
-     * La map qui contient les <code>forward</code> des actions.
-     */
-    private Map<String, Map<String, String>> mappingForward;
+    private Map<String, FormXML> mappingActionForm;
 
     /**
      * Constructeur.
@@ -72,7 +63,7 @@ public class FactoryImpl implements IFactory {
      * {@inheritDoc}
      */
     @Override
-    public IAction fabriqueAction(String paramPath) {
+    public ActionXML fabriqueAction(String paramPath) {
         LOGGER.debug("Méthode fabriqueAction");
         if (mappingAction == null) {
             mappingAction = config.remplirMapAction();
@@ -89,31 +80,7 @@ public class FactoryImpl implements IFactory {
         if (mappingActionForm == null) {
             mappingActionForm = config.remplirMapForm();
         }
-        return mappingActionForm.get(paramActionForm);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String fabriqueCorrespondanceActionEtForm(String paramPath) {
-        LOGGER.debug("Méthode fabriqueCorrespondanceActionEtForm");
-        if (mapping == null) {
-            mapping = config.remplirMap("action", "url-pattern", "form-name");
-        }
-        return mapping.get(paramPath);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getView(String paramPath) {
-        LOGGER.debug("Méthode getView");
-        if (mappingView == null) {
-            mappingView = config.remplirMap("action", "url-pattern", "from-view");
-        }
-        return mappingView.get(paramPath);
+        return mappingActionForm.get(paramActionForm).getActionForm();
     }
 
     /**
@@ -122,10 +89,16 @@ public class FactoryImpl implements IFactory {
     @Override
     public String getForward(String paramActionName, String paramName) {
         LOGGER.debug("Méthode getForward");
-        if (mappingForward == null) {
-            mappingForward = config.remplirMapForward();
+        if (mappingAction == null) {
+            mappingAction = config.remplirMapAction();
         }
-        return mappingForward.get(paramActionName).get(paramName);
+        String forward = null;
+        for (ForwardXML localForwardXML : mappingAction.get(paramActionName).getForwardXMLs()) {
+            if (paramName.equals(localForwardXML.getName())) {
+                forward = localForwardXML.getPath();
+            }
+        }
+        return forward;
     }
 
     /**

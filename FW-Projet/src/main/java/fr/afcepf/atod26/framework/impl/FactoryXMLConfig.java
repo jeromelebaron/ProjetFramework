@@ -8,9 +8,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.FormAction;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,6 +30,9 @@ import org.xml.sax.SAXException;
 import fr.afcepf.atod26.framework.api.IAction;
 import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.api.IConfig;
+import fr.afcepf.atod26.framework.impl.entity.ActionXML;
+import fr.afcepf.atod26.framework.impl.entity.FormXML;
+import fr.afcepf.atod26.framework.impl.entity.ForwardXML;
 
 /**
  * L'implémentation pour la configuration du framework avec le fichier XML.
@@ -101,18 +107,19 @@ public class FactoryXMLConfig implements IConfig {
      * {@inheritDoc}
      */
     @Override
-    public Map<String, IAction> remplirMapAction() {
+    public Map<String, ActionXML> remplirMapAction() {
         LOGGER.debug("Méthode remplirMapAction");
-        Map<String, IAction> mapping = new HashMap<>();
+        Map<String, ActionXML> mapping = new HashMap<>();
         try {
             NodeList actions = racine.getElementsByTagName("action");
             for (int localI = 0; localI < actions.getLength(); localI++) {
                 final Node base = actions.item(localI);
                 final NodeList elementsActions = base.getChildNodes();
-                final String urlPattern = recupererContenuNoeud(elementsActions, "url-pattern");
-                final String classPattern = recupererContenuNoeud(elementsActions, "action-name");
-                final IAction action = (IAction) Class.forName(classPattern).newInstance();
-                mapping.put(urlPattern, action);
+                final ActionXML localActionXML = new ActionXML();
+                final String urlPattern = construireActionXML(elementsActions, localActionXML);
+                final List<ForwardXML> forwardXMLs = recupererForward(elementsActions);
+                localActionXML.setForwardXMLs(forwardXMLs);
+                mapping.put(urlPattern, localActionXML);
             }
         } catch (DOMException | InstantiationException | IllegalAccessException
                 | ClassNotFoundException e) {
@@ -122,19 +129,35 @@ public class FactoryXMLConfig implements IConfig {
     }
 
     /**
-     * Pour récupérer le contenu d'un noeud en fonction de la balise.
-     * @param listeNoeud la liste des noeuds à parcourir.
-     * @param nomNoeud le nom de la balise.
-     * @return la contenu de le balise.
+     * Pour construire une action XML à partir des balises contenu dans la basise
+     * <code>action</code>
+     * @param elementsActions la liste des enfants de <code>action</code>
+     * @param localActionXML l'actionXML à peupler
+     * @return l'url pattern associée à l'action.
+     * @throws InstantiationException au cas ou.
+     * @throws IllegalAccessException au cas ou.
+     * @throws ClassNotFoundException au cas ou.
      */
-    private static String recupererContenuNoeud(NodeList listeNoeud, String nomNoeud) {
-        LOGGER.debug("Méthode recupererContenuNoeud");
-        LOGGER.debug("Param nomNoeud " + nomNoeud);
+    private String construireActionXML(final NodeList elementsActions,
+            final ActionXML localActionXML) throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
         String urlPattern = null;
-        for (int localI2 = 0; localI2 < listeNoeud.getLength(); localI2++) {
-            final Node enfant = listeNoeud.item(localI2);
-            if (nomNoeud.equals(enfant.getNodeName())) {
+        for (int localI2 = 0; localI2 < elementsActions.getLength(); localI2++) {
+            final Node enfant = elementsActions.item(localI2);
+            if ("url-pattern".equals(enfant.getNodeName())) {
+                localActionXML.setUrlPattern(enfant.getTextContent());
                 urlPattern = enfant.getTextContent();
+            }
+            if ("action-name".equals(enfant.getNodeName())) {
+                final IAction action = (IAction) Class.forName(enfant.getTextContent())
+                        .newInstance();
+                localActionXML.setAction(action);
+            }
+            if ("form-name".equals(enfant.getNodeName())) {
+                localActionXML.setFormName(enfant.getTextContent());
+            }
+            if ("from-view".equals(enfant.getNodeName())) {
+                localActionXML.setFromView(enfant.getTextContent());
             }
         }
         return urlPattern;
@@ -144,18 +167,17 @@ public class FactoryXMLConfig implements IConfig {
      * {@inheritDoc}
      */
     @Override
-    public Map<String, IActionForm> remplirMapForm() {
+    public Map<String, FormXML> remplirMapForm() {
         LOGGER.debug("Méthode remplirMapForm");
-        Map<String, IActionForm> lesActionsForms = new HashMap<>();
+        Map<String, FormXML> lesActionsForms = new HashMap<>();
         try {
             NodeList actions = racine.getElementsByTagName("form");
             for (int localI = 0; localI < actions.getLength(); localI++) {
                 final Node base = actions.item(localI);
                 final NodeList elementsActions = base.getChildNodes();
-                final String urlPattern = recupererContenuNoeud(elementsActions, "form-name");
-                final String classPattern = recupererContenuNoeud(elementsActions, "form-class");
-                final IActionForm action = (IActionForm) Class.forName(classPattern).newInstance();
-                lesActionsForms.put(urlPattern, action);
+                final FormXML localFormXML = new FormXML();
+                final String formName = construireFromXML(elementsActions, localFormXML);
+                lesActionsForms.put(formName, localFormXML);
             }
         } catch (DOMException | InstantiationException | IllegalAccessException
                 | ClassNotFoundException e) {
@@ -165,28 +187,30 @@ public class FactoryXMLConfig implements IConfig {
     }
 
     /**
-     * {@inheritDoc}
+     * Pour construire une action XML à partir des balises contenu dans la basise <code>form</code>
+     * @param elementsActions la liste des enfants de <code>form</code>
+     * @param localFormXML le {@link FormXML} à peupler
+     * @return l'url pattern associée au {@link FormAction}.
+     * @throws InstantiationException au cas ou.
+     * @throws IllegalAccessException au cas ou.
+     * @throws ClassNotFoundException au cas ou.
      */
-    @Override
-    public Map<String, String> remplirMap(String paramTagParent, String paramCle, String paramValeur) {
-        LOGGER.debug("Méthode remplirMap");
-        LOGGER.debug("Param paramTagParent " + paramTagParent);
-        LOGGER.debug("Param paramCle " + paramCle);
-        LOGGER.debug("Param paramValeur " + paramValeur);
-        Map<String, String> correspondanceActionForm = new HashMap<>();
-        try {
-            final NodeList actions = racine.getElementsByTagName(paramTagParent);
-            for (int localI = 0; localI < actions.getLength(); localI++) {
-                final Node base = actions.item(localI);
-                final NodeList elementsActions = base.getChildNodes();
-                final String urlPattern = recupererContenuNoeud(elementsActions, paramCle);
-                final String classPattern = recupererContenuNoeud(elementsActions, paramValeur);
-                correspondanceActionForm.put(urlPattern, classPattern);
+    private String construireFromXML(final NodeList elementsActions, final FormXML localFormXML)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        String formName = null;
+        for (int localI2 = 0; localI2 < elementsActions.getLength(); localI2++) {
+            final Node enfant = elementsActions.item(localI2);
+            if ("form-name".equals(enfant.getNodeName())) {
+                localFormXML.setFormName(enfant.getTextContent());
+                formName = enfant.getTextContent();
             }
-        } catch (DOMException e) {
-            LOGGER.error("Erreur lors du remplissage", e);
+            if ("form-class".equals(enfant.getNodeName())) {
+                final IActionForm actionForm = (IActionForm) Class.forName(enfant.getTextContent())
+                        .newInstance();
+                localFormXML.setActionForm(actionForm);
+            }
         }
-        return correspondanceActionForm;
+        return formName;
     }
 
     /**
@@ -221,39 +245,6 @@ public class FactoryXMLConfig implements IConfig {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Map<String, Map<String, String>> remplirMapForward() {
-        LOGGER.debug("Méthode remplirMapForward");
-        Map<String, Map<String, String>> lesForwards = new HashMap<>();
-        try {
-            final NodeList actions = racine.getElementsByTagName("action");
-            for (int localI = 0; localI < actions.getLength(); localI++) {
-                final Node base = actions.item(localI);
-                final NodeList elementsActions = base.getChildNodes();
-                final Map<String, String> secondeMap = new HashMap<>();
-                String cle = null;
-                for (int localI2 = 0; localI2 < elementsActions.getLength(); localI2++) {
-                    Node noeud = elementsActions.item(localI2);
-                    if ("action-name".equals(noeud.getNodeName())) {
-                        cle = noeud.getTextContent();
-                    }
-                    if ("forward".equals(noeud.getNodeName())) {
-                        final String cleSecondeMap = recuperAttributNoeud(noeud, "name");
-                        final String valeurSecondeMap = recuperAttributNoeud(noeud, "path");
-                        secondeMap.put(cleSecondeMap, valeurSecondeMap);
-                    }
-                }
-                lesForwards.put(cle, secondeMap);
-            }
-        } catch (DOMException e) {
-            LOGGER.error("Erreur lors du remplissage des forward", e);
-        }
-        return lesForwards;
-    }
-
-    /**
      * Pour récupérer le contenu d'une propriété d'un noeud.
      * @param noeud le noeud à scanner.
      * @param paramAttribut le nom de la balise.
@@ -270,6 +261,20 @@ public class FactoryXMLConfig implements IConfig {
             }
         }
         return valeurAttribut;
+    }
+
+    private List<ForwardXML> recupererForward(NodeList paramElementsActions) {
+        List<ForwardXML> localForwardXMLs = new ArrayList<>();
+        for (int localI2 = 0; localI2 < paramElementsActions.getLength(); localI2++) {
+            final Node enfant = paramElementsActions.item(localI2);
+            if ("forward".equals(enfant.getNodeName())) {
+                final String name = recuperAttributNoeud(enfant, "name");
+                final String path = recuperAttributNoeud(enfant, "path");
+                final ForwardXML localForwardXML = new ForwardXML(name, path);
+                localForwardXMLs.add(localForwardXML);
+            }
+        }
+        return localForwardXMLs;
     }
 
     /**
@@ -332,14 +337,6 @@ public class FactoryXMLConfig implements IConfig {
     }
 
     /**
-     * Accesseur en écriture du champ <code>factoryXMLConfig</code>.
-     * @param paramFactoryXMLConfig la valeur à écrire dans <code>factoryXMLConfig</code>.
-     */
-    public static void setFactoryXMLConfig(FactoryXMLConfig paramFactoryXMLConfig) {
-        factoryXMLConfig = paramFactoryXMLConfig;
-    }
-
-    /**
      * Pour setter les attributs par injection de dépendance.
      * @param paramNouvelleInstance la nouvelle instance à injecter.
      * @param paramProprieteBean la map avec les propriétés des bean.
@@ -362,6 +359,14 @@ public class FactoryXMLConfig implements IConfig {
                 }
             }
         }
+    }
+
+    /**
+     * Accesseur en écriture du champ <code>factoryXMLConfig</code>.
+     * @param paramFactoryXMLConfig la valeur à écrire dans <code>factoryXMLConfig</code>.
+     */
+    public static void setFactoryXMLConfig(FactoryXMLConfig paramFactoryXMLConfig) {
+        factoryXMLConfig = paramFactoryXMLConfig;
     }
 
 }

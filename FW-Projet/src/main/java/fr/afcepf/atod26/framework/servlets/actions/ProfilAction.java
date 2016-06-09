@@ -41,7 +41,7 @@ public class ProfilAction implements IAction {
         artistes.add("Metallica");
         artistes.add("Iron Maiden");
         paramRequest.setAttribute("artistes", artistes);
-        return factoryImpl.getForward(this.getClass().getName(), "success");
+        return factoryImpl.getForward("secured/profil", "success");
     }
 
 }

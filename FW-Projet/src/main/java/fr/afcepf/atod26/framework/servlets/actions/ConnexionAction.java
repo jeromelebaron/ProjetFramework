@@ -38,7 +38,7 @@ public class ConnexionAction implements IAction {
         final LoginBean loginBean = new LoginBean();
         loginBean.setLogged(true);
         paramRequest.getSession().setAttribute("loginBean", loginBean);
-        return factoryImpl.getForward(this.getClass().getName(), "success");
+        return factoryImpl.getForward("connexion", "success");
     }
 
 }

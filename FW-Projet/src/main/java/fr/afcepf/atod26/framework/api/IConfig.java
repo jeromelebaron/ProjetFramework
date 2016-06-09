@@ -5,6 +5,9 @@ package fr.afcepf.atod26.framework.api;
 
 import java.util.Map;
 
+import fr.afcepf.atod26.framework.impl.entity.ActionXML;
+import fr.afcepf.atod26.framework.impl.entity.FormXML;
+
 /**
  * Les méthodes nécessaires à la configuration du framework.
  * @author Jérome LE BARON
@@ -17,28 +20,12 @@ public interface IConfig {
      * Pour construire la Map avec la correspondance entre url pattern et classe correspondante.
      * @return la map remplie.
      */
-    Map<String, IAction> remplirMapAction();
+    Map<String, ActionXML> remplirMapAction();
 
     /**
      * Pour remplir la map des classes qui implémentent {@link IActionForm}.
      * @return la map avec en clé le form-name et en valeur l'instance de la classe correspondante.
      */
-    Map<String, IActionForm> remplirMapForm();
+    Map<String, FormXML> remplirMapForm();
 
-    /**
-     * La map avec la correspondance entre la cle et la valeur du tag parent précisé.
-     * @param paramTagParent le nom du tag.
-     * @param paramCle la balise enfant de ce tag dont le contenu servira de clef.
-     * @param paramValeur la balise enfant de ce tage dont le contenu servira de valeur.
-     * @return une map avec cle et valeur passée en paramètre.
-     */
-    Map<String, String> remplirMap(String paramTagParent, String paramCle, String paramValeur);
-
-    /**
-     * Pour remplir la map des forward de chacune des actions.
-     * @return une map avec en clé le nom de l'action et en valeur une map avec comme clé est le nom
-     *         de l'action et comme valeur la liste des forward avec en clé la propriété
-     *         <code>name</code> et en valeur la page ou aller.
-     */
-    Map<String, Map<String, String>> remplirMapForward();
 }

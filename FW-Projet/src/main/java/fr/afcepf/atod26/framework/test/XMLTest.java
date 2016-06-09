@@ -17,8 +17,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import fr.afcepf.atod26.framework.api.IAction;
-import fr.afcepf.atod26.framework.api.IActionForm;
 import fr.afcepf.atod26.framework.impl.FactoryXMLConfig;
+import fr.afcepf.atod26.framework.impl.entity.ActionXML;
+import fr.afcepf.atod26.framework.impl.entity.FormXML;
 import fr.afcepf.atod26.framework.servlets.actions.ConnexionAction;
 
 /**
@@ -57,17 +58,12 @@ public class XMLTest {
                 }
             }
         }
-        Map<String, IAction> test = config.remplirMapAction();
+        Map<String, ActionXML> test = config.remplirMapAction();
         System.out.println(test);
-        Map<String, IActionForm> testForm = config.remplirMapForm();
+        Map<String, FormXML> testForm = config.remplirMapForm();
         System.out.println(testForm);
-        Map<String, String> testMapping = config.remplirMap("action", "url-pattern", "form-name");
-        System.out.println(testMapping);
-        Map<String, Map<String, String>> testForward = config.remplirMapForward();
-        System.out.println("Map forward" + testForward);
         IAction localAction = new ConnexionAction();
         System.out.println(localAction.getClass().getName());
-        System.out.println(testForward.get(localAction.getClass().getName()).get("success"));
        
     }
 
