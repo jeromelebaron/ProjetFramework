@@ -15,17 +15,17 @@
 		<form action="connexion.frm" method="post">
 			<div class="form-group">
 				<label class="col-md-2">Login : </label> <input type="text"
-					name="login" value="${login}" /><span><c:out
+					name="login" value="${login}" />&#160;<span><c:out
 						value="${erreurs['login'] }"></c:out></span>
 			</div>
 			<div class="form-group">
 				<label class="col-md-2">Mot de passe : </label> <input
-					type="password" name="password" /><span><c:out
+					type="password" name="password" />&#160;<span><c:out
 						value="${erreurs['password'] }"></c:out></span>
 			</div>
 			<div class="form-group">
-				<input type="submit" value="Connexion" class="btn btn-primary"><span><c:out
-						value="${erreurs['authentification'] }"></c:out> </span>
+				<input type="submit" value="Connexion" class="btn btn-primary">&#160;<span><c:out
+						value="${erreurs['authentification'] }"></c:out></span>
 			</div>
 		</form>
 	</div>
