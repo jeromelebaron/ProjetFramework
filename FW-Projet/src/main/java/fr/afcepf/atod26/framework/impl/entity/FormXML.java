@@ -6,16 +6,28 @@ package fr.afcepf.atod26.framework.impl.entity;
 import fr.afcepf.atod26.framework.api.IActionForm;
 
 /**
- * Description de la classe
+ * L'entité qui correspond à une balise <code>form</code> du xml de configuration.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
 public class FormXML {
 
+    /**
+     * L'instance liée à la balise.
+     */
     private IActionForm actionForm;
-
+    /**
+     * Le nom du formulaire.
+     */
     private String formName;
+
+    /**
+     * Constructeur.
+     */
+    public FormXML() {
+        // EMPTY
+    }
 
     /**
      * Accesseur en lecture du champ <code>actionForm</code>.

@@ -117,8 +117,6 @@ public class FactoryXMLConfig implements IConfig {
                 final NodeList elementsActions = base.getChildNodes();
                 final ActionXML localActionXML = new ActionXML();
                 final String urlPattern = construireActionXML(elementsActions, localActionXML);
-                final List<ForwardXML> forwardXMLs = recupererForward(elementsActions);
-                localActionXML.setForwardXMLs(forwardXMLs);
                 mapping.put(urlPattern, localActionXML);
             }
         } catch (DOMException | InstantiationException | IllegalAccessException
@@ -159,6 +157,9 @@ public class FactoryXMLConfig implements IConfig {
             if ("from-view".equals(enfant.getNodeName())) {
                 localActionXML.setFromView(enfant.getTextContent());
             }
+            if ("forwards".equals(enfant.getNodeName())) {
+                localActionXML.setForwardXMLs(recupererForward(enfant));
+            }
         }
         return urlPattern;
     }
@@ -176,7 +177,7 @@ public class FactoryXMLConfig implements IConfig {
                 final Node base = actions.item(localI);
                 final NodeList elementsActions = base.getChildNodes();
                 final FormXML localFormXML = new FormXML();
-                final String formName = construireFromXML(elementsActions, localFormXML);
+                final String formName = construireFormXML(elementsActions, localFormXML);
                 lesActionsForms.put(formName, localFormXML);
             }
         } catch (DOMException | InstantiationException | IllegalAccessException
@@ -195,7 +196,7 @@ public class FactoryXMLConfig implements IConfig {
      * @throws IllegalAccessException au cas ou.
      * @throws ClassNotFoundException au cas ou.
      */
-    private String construireFromXML(final NodeList elementsActions, final FormXML localFormXML)
+    private String construireFormXML(final NodeList elementsActions, final FormXML localFormXML)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         String formName = null;
         for (int localI2 = 0; localI2 < elementsActions.getLength(); localI2++) {
@@ -263,10 +264,11 @@ public class FactoryXMLConfig implements IConfig {
         return valeurAttribut;
     }
 
-    private List<ForwardXML> recupererForward(NodeList paramElementsActions) {
+    private List<ForwardXML> recupererForward(Node paramEnfant) {
         List<ForwardXML> localForwardXMLs = new ArrayList<>();
-        for (int localI2 = 0; localI2 < paramElementsActions.getLength(); localI2++) {
-            final Node enfant = paramElementsActions.item(localI2);
+        NodeList lesForward = paramEnfant.getChildNodes();
+        for (int localI2 = 0; localI2 < lesForward.getLength(); localI2++) {
+            final Node enfant = lesForward.item(localI2);
             if ("forward".equals(enfant.getNodeName())) {
                 final String name = recuperAttributNoeud(enfant, "name");
                 final String path = recuperAttributNoeud(enfant, "path");

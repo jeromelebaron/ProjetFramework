@@ -64,7 +64,7 @@ public class XMLTest {
         System.out.println(testForm);
         IAction localAction = new ConnexionAction();
         System.out.println(localAction.getClass().getName());
-       
+
     }
 
 }

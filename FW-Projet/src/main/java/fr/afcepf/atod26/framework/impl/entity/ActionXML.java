@@ -8,21 +8,32 @@ import java.util.List;
 import fr.afcepf.atod26.framework.api.IAction;
 
 /**
- * Description de la classe
+ * L'entité qui correspond à une balise <code>action</code> du xml de configuration.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
 public class ActionXML {
 
+    /**
+     * L'instance {@link IAction}.
+     */
     private IAction action;
-
+    /**
+     * L'url pattern de la balise.
+     */
     private String urlPattern;
-
+    /**
+     * Le nom complet de la classe liée à l'{@link IAction}.
+     */
     private String formName;
-
+    /**
+     * D'ou l'on vient.
+     */
     private String fromView;
-
+    /**
+     * La liste des chemins.
+     */
     private List<ForwardXML> forwardXMLs;
 
     /**
@@ -30,24 +41,6 @@ public class ActionXML {
      */
     public ActionXML() {
         // EMPTY
-    }
-
-    /**
-     * Constructeur.
-     * @param paramAction
-     * @param paramUrlPattern
-     * @param paramFormName
-     * @param paramFromView
-     * @param paramForwardXMLs
-     */
-    public ActionXML(IAction paramAction, String paramUrlPattern, String paramFormName,
-            String paramFromView, List<ForwardXML> paramForwardXMLs) {
-        super();
-        action = paramAction;
-        urlPattern = paramUrlPattern;
-        formName = paramFormName;
-        fromView = paramFromView;
-        forwardXMLs = paramForwardXMLs;
     }
 
     /**

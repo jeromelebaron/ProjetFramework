@@ -4,15 +4,20 @@
 package fr.afcepf.atod26.framework.impl.entity;
 
 /**
- * Description de la classe
+ * L'entité qui correspond à une balise <code>forward</code> du xml de configuration.
  * @author Jérome LE BARON
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
 public class ForwardXML {
 
+    /**
+     * La valeur de l'attribut name.
+     */
     private String name;
-
+    /**
+     * La valeur de l'attribut path.
+     */
     private String path;
 
     /**

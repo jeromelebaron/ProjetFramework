@@ -7,14 +7,18 @@
 			<url-pattern>connexion</url-pattern>
 			<form-name>ConnexionForm</form-name>
 			<from-view>connexion.jsp</from-view>
-			<forward name="success" path="/secured/accueil.jsp" />
-			<forward name="error" path="/accueil.jsp"/>
+			<forwards>
+				<forward name="success" path="/secured/accueil.jsp" />
+				<forward name="error" path="/accueil.jsp" />
+			</forwards>
 		</action>
 		<action>
 			<action-name>fr.afcepf.atod26.framework.servlets.actions.ProfilAction</action-name>
 			<url-pattern>secured/profil</url-pattern>
 			<form-name>ProfilForm</form-name>
-			<forward name="success" path="/secured/profil.jsp"/>
+			<forwards>
+				<forward name="success" path="/secured/profil.jsp" />
+			</forwards>
 		</action>
 	</actions>
 	<forms>
