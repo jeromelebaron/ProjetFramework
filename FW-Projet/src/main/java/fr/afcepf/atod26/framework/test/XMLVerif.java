@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,7 +29,18 @@ import fr.afcepf.atod26.framework.servlets.actions.ConnexionAction;
  * @author $LastChangedBy$
  * @version $Revision$ $Date$
  */
-public class XMLTest {
+public class XMLVerif {
+
+    /**
+     * Pour faire du log.
+     */
+    private static final Logger LOGGER = Logger.getLogger(XMLVerif.class);
+
+    /**
+     * Constructeur privé.
+     */
+    private XMLVerif() {
+    }
 
     /**
      * @param args
@@ -54,17 +66,16 @@ public class XMLTest {
             for (int localI2 = 0; localI2 < elements.getLength(); localI2++) {
                 Node enfant = elements.item(localI2);
                 if ("url-pattern".equals(enfant.getNodeName())) {
-                    System.out.println(enfant.getTextContent());
+                    LOGGER.info(enfant.getTextContent());
                 }
             }
         }
         Map<String, ActionXML> test = config.remplirMapAction();
-        System.out.println(test);
+        LOGGER.info(test);
         Map<String, FormXML> testForm = config.remplirMapForm();
-        System.out.println(testForm);
+        LOGGER.info(testForm);
         IAction localAction = new ConnexionAction();
-        System.out.println(localAction.getClass().getName());
-
+        LOGGER.info(localAction.getClass().getName());
     }
 
 }

@@ -94,9 +94,9 @@ public class ActionServlet extends HttpServlet {
     private Map<String, String> recupereParametresRequete(HttpServletRequest request) {
         final Map<String, String[]> paramRequest = request.getParameterMap();
         final Map<String, String> aRenvoyer = new HashMap<>();
-        for (String cle : paramRequest.keySet()) {
-            aRenvoyer.put(cle, paramRequest.get(cle)[0]);
-            request.setAttribute(cle, paramRequest.get(cle)[0]);
+        for (Map.Entry<String, String[]> entree : paramRequest.entrySet()) {
+            aRenvoyer.put(entree.getKey(), paramRequest.get(entree.getKey())[0]);
+            request.setAttribute(entree.getKey(), paramRequest.get(entree.getKey())[0]);
         }
         return aRenvoyer;
     }

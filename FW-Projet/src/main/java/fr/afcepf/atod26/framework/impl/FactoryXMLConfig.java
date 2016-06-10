@@ -165,6 +165,26 @@ public class FactoryXMLConfig implements IConfig {
     }
 
     /**
+     * Pour récupérer les balises <code>forward</code> d'un noeud <code>forwards</code>.
+     * @param paramEnfant le noeud dans lequel chercher les balises.
+     * @return une liste de {@link ForwardXML}.
+     */
+    private List<ForwardXML> recupererForward(Node paramEnfant) {
+        List<ForwardXML> localForwardXMLs = new ArrayList<>();
+        NodeList lesForward = paramEnfant.getChildNodes();
+        for (int localI2 = 0; localI2 < lesForward.getLength(); localI2++) {
+            final Node enfant = lesForward.item(localI2);
+            if ("forward".equals(enfant.getNodeName())) {
+                final String name = recuperAttributNoeud(enfant, "name");
+                final String path = recuperAttributNoeud(enfant, "path");
+                final ForwardXML localForwardXML = new ForwardXML(name, path);
+                localForwardXMLs.add(localForwardXML);
+            }
+        }
+        return localForwardXMLs;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -215,7 +235,8 @@ public class FactoryXMLConfig implements IConfig {
     }
 
     /**
-     * {@inheritDoc}
+     * Pour l'injection de dépendances.
+     * @return une map avec les instances.
      */
     public static Map<String, Object> remplirMapBeans() {
         LOGGER.debug("Méthode remplirMapBeans");
@@ -246,14 +267,14 @@ public class FactoryXMLConfig implements IConfig {
     }
 
     /**
-     * Pour récupérer le contenu d'une propriété d'un noeud.
+     * Pour récupérer le contenu d'un attribut d'un noeud.
      * @param noeud le noeud à scanner.
      * @param paramAttribut le nom de la balise.
      * @return le contenu du noeud.
      */
     private static String recuperAttributNoeud(Node noeud, String paramAttribut) {
         LOGGER.debug("Méthode recuperAttributNoeud");
-        LOGGER.debug("Param paramAttribut " + paramAttribut);
+        LOGGER.debug("  Param paramAttribut " + paramAttribut);
         final NamedNodeMap listeAttribut = noeud.getAttributes();
         String valeurAttribut = null;
         for (int localI = 0; localI < listeAttribut.getLength(); localI++) {
@@ -262,21 +283,6 @@ public class FactoryXMLConfig implements IConfig {
             }
         }
         return valeurAttribut;
-    }
-
-    private List<ForwardXML> recupererForward(Node paramEnfant) {
-        List<ForwardXML> localForwardXMLs = new ArrayList<>();
-        NodeList lesForward = paramEnfant.getChildNodes();
-        for (int localI2 = 0; localI2 < lesForward.getLength(); localI2++) {
-            final Node enfant = lesForward.item(localI2);
-            if ("forward".equals(enfant.getNodeName())) {
-                final String name = recuperAttributNoeud(enfant, "name");
-                final String path = recuperAttributNoeud(enfant, "path");
-                final ForwardXML localForwardXML = new ForwardXML(name, path);
-                localForwardXMLs.add(localForwardXML);
-            }
-        }
-        return localForwardXMLs;
     }
 
     /**
@@ -316,7 +322,7 @@ public class FactoryXMLConfig implements IConfig {
             ClassNotFoundException, InstantiationException, IllegalAccessException,
             InvocationTargetException {
         LOGGER.debug("Méthode recupererInstance");
-        LOGGER.debug("Param nomClasse " + nomClasse);
+        LOGGER.debug("  Param nomClasse " + nomClasse);
         final Constructor<?> constructeur = Class.forName(nomClasse).getDeclaredConstructor();
         constructeur.setAccessible(true);
         return constructeur.newInstance();
@@ -349,14 +355,14 @@ public class FactoryXMLConfig implements IConfig {
             Map<String, String> paramProprieteBean, Map<String, Object> paramLesBeans)
             throws IllegalAccessException {
         LOGGER.debug("Méthode setDependance");
-        for (String clefBean : paramLesBeans.keySet()) {
-            if (paramProprieteBean.get(clefBean) != null) {
+        for (Map.Entry<String, Object> entree : paramLesBeans.entrySet()) {
+            if (paramProprieteBean.get(entree.getKey()) != null) {
                 final Class<? extends Object> c = paramNouvelleInstance.getClass();
                 final Field[] lesAttributs = c.getDeclaredFields();
                 for (Field localField : lesAttributs) {
-                    if (paramProprieteBean.get(clefBean).equals(localField.getName())) {
+                    if (paramProprieteBean.get(entree.getKey()).equals(localField.getName())) {
                         localField.setAccessible(true);
-                        localField.set(paramNouvelleInstance, paramLesBeans.get(clefBean));
+                        localField.set(paramNouvelleInstance, paramLesBeans.get(entree.getKey()));
                     }
                 }
             }
